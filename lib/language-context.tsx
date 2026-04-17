@@ -171,7 +171,7 @@ const translations = {
     "faq.contact": "Не знайшли відповіді? Напишіть нам на",
 
     // Footer
-    "footer.tagline": "Smart nutrition assistant для здорового харчування в Україні.",
+    "footer.tagline": "Персональний помічник зі здорового харчування під ваші цілі, бюджет і вподобання.",
     "footer.product": "Продукт",
     "footer.company": "Компанія",
     "footer.contact": "Контакти",
