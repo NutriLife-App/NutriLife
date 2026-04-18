@@ -21,7 +21,7 @@ const translations = {
 
     // Hero
     "hero.badge": "Помічник з харчування",
-    "hero.headline": "Персоналізоване харчування для реального життя в Україні",
+    "hero.headline": "Персоналізоване харчування для українців",
     "hero.stats.recipes": "Рецептів",
     "hero.stats.local": "Локальні продукти",
     "hero.stats.ai": "Персоналізація",
@@ -35,13 +35,13 @@ const translations = {
     "hero.health": "Стан здоров'я",
     "hero.spending": "Витрати на продукти",
     "hero.spendingDesc": "Вкладаєтесь у бюджет",
-    "hero.subheadline": "NutriLife допомагає скласти зручний раціон під ваші цілі, бюджет та уподобання — з продуктів, які можна купити в найближчому магазині.",
+    "hero.subheadline": "NutriLife допомагає скласти зручний раціон під ваші цілі, бюджет та уподобання з продуктів, які можна купити в найближчому магазині.",
     "hero.cta.primary": "Спробувати першими",
     "hero.cta.secondary": "Дізнатися більше",
 
     // Problem
     "problem.label": "Проблема",
-    "problem.headline": "Здорове харчування в Україні - це виклик",
+    "problem.headline": "Здорове харчування в Україні – це виклик",
     "problem.item1.title": "Складність планування",
     "problem.item1.desc": "Важко скласти раціон, який буде смачним, корисним і доступним одночасно.",
     "problem.item2.title": "Нереалістичні поради",
@@ -49,7 +49,7 @@ const translations = {
     "problem.item3.title": "Обмежений бюджет",
     "problem.item3.desc": "Здорове харчування не повинно коштувати як крило літака.",
     "problem.item4.title": "Брак часу",
-    "problem.item4.desc": "Щодня думати про те, що приготувати - виснажує.",
+    "problem.item4.desc": "Щодня думати про те, що приготувати – виснажує.",
 
     // Solution
     "solution.label": "Рішення",
@@ -87,7 +87,7 @@ const translations = {
     "forWhom.card3.title": "Активні люди",
     "forWhom.card3.desc": "Оптимальне харчування для підтримки енергії та досягнення фітнес-цілей.",
     "forWhom.card4.title": "Зайняті професіонали",
-    "forWhom.card4.desc": "Економте час на плануванні - більше часу для важливих справ.",
+    "forWhom.card4.desc": "Економте час на плануванні – більше часу для важливих справ.",
 
     // Product preview
     "preview.label": "Продукт",
@@ -116,7 +116,7 @@ const translations = {
     "different.item3.title": "Реальний бюджет",
     "different.item3.desc": "Плануємо раціон, який не вдарить по гаманцю.",
     "different.item4.title": "Гнучкість",
-    "different.item4.desc": "Легко адаптується до ваших змін - настрій, сезон, можливості.",
+    "different.item4.desc": "Легко адаптується до ваших змін – настрій, сезон, можливості.",
     "different.trust": "Раціони формуються на основі перевірених нутриціологічних принципів, а не модних трендів.",
     "different.sources": "Науково обґрунтовані рекомендації",
     "different.experts": "Експертів",
@@ -263,7 +263,7 @@ const translations = {
     "forWhom.card3.title": "Active People",
     "forWhom.card3.desc": "Optimal nutrition to maintain energy and achieve fitness goals.",
     "forWhom.card4.title": "Busy Professionals",
-    "forWhom.card4.desc": "Save time on planning - more time for what matters.",
+    "forWhom.card4.desc": "Save time on planning – more time for what matters.",
 
     // Product preview
     "preview.label": "Product",
@@ -292,7 +292,7 @@ const translations = {
     "different.item3.title": "Real Budget",
     "different.item3.desc": "Planning meals that won't break the bank.",
     "different.item4.title": "Flexibility",
-    "different.item4.desc": "Easily adapts to your changes - mood, season, possibilities.",
+    "different.item4.desc": "Easily adapts to your changes – mood, season, possibilities.",
     "different.trust": "Meal plans are built on established nutrition principles, not trending fads.",
     "different.sources": "Evidence-based recommendations",
     "different.experts": "Experts",
