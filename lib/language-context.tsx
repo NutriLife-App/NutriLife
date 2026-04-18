@@ -20,8 +20,8 @@ const translations = {
     "nav.waitlist": "Приєднатися",
 
     // Hero
-    "hero.badge": "Розумний Помічник з Харчування",
-    "hero.headline": "Персоналізоване харчування для українців",
+    "hero.badge": "Помічник з харчування",
+    "hero.headline": "Персоналізоване харчування для реального життя в Україні",
     "hero.stats.recipes": "Рецептів",
     "hero.stats.local": "Локальні продукти",
     "hero.stats.ai": "Персоналізація",
@@ -32,9 +32,10 @@ const translations = {
     "hero.meal.dinner": "Вечеря",
     "hero.meal.dinner.desc": "Риба з рисом",
     "hero.dailyGoal": "Щоденна ціль",
-    "hero.health": "Здоров'я",
-    "hero.spending": "Витрати",
-    "hero.subheadline": "NutriLife App - це персональний помічник зі здорового харчування, який допомагає складати зручний раціон під ваші цілі, бюджет і вподобання з урахуванням продуктів, які можна купити поруч.",
+    "hero.health": "Стан здоров'я",
+    "hero.spending": "Витрати на продукти",
+    "hero.spendingDesc": "Вкладаєтесь у бюджет",
+    "hero.subheadline": "NutriLife допомагає скласти зручний раціон під ваші цілі, бюджет та уподобання — з продуктів, які можна купити в найближчому магазині.",
     "hero.cta.primary": "Спробувати першими",
     "hero.cta.secondary": "Дізнатися більше",
 
@@ -53,7 +54,7 @@ const translations = {
     // Solution
     "solution.label": "Рішення",
     "solution.headline": "NutriLife створює персональний план харчування для вас",
-    "solution.desc": "Ми враховуємо ваші цілі, бюджет, уподобання та продукти, доступні в українських магазинах, щоб створити реалістичний та здоровий раціон.",
+    "solution.desc": "Вказуєте свої цілі, бюджет та уподобання — і отримуєте раціон із реальних продуктів, які є в українських магазинах. Без екзотики, без зайвих витрат.",
     "solution.feature1": "Персоналізовані рецепти",
     "solution.feature2": "Локальні продукти",
     "solution.feature3": "Розумний бюджет",
@@ -72,7 +73,7 @@ const translations = {
     "howItWorks.step1.title": "Розкажіть про себе",
     "howItWorks.step1.desc": "Вкажіть свої цілі, уподобання, алергії та бюджет.",
     "howItWorks.step2.title": "Отримайте план",
-    "howItWorks.step2.desc": "AI створить персоналізований тижневий раціон з рецептами та списком покупок.",
+    "howItWorks.step2.desc": "Застосунок складе тижневий раціон з рецептами та списком покупок, підібраним під вас.",
     "howItWorks.step3.title": "Насолоджуйтесь",
     "howItWorks.step3.desc": "Готуйте смачні страви та досягайте своїх цілей щодня.",
 
@@ -107,19 +108,20 @@ const translations = {
 
     // Why different
     "different.label": "Чому ми",
-    "different.headline": "Чому NutriLife?",
+    "different.headline": "Чому NutriLife - це інакше",
     "different.item1.title": "Локальний фокус",
-    "different.item1.desc": "Ми враховуємо продукти, які можна купити в українських магазинах.",
-    "different.item2.title": "AI + Наука",
-    "different.item2.desc": "Поєднуємо штучний інтелект з доказовою нутриціологією.",
-    "different.item3.title": "Розумний бюджет",
-    "different.item3.desc": "Допомагаємо складати раціон, який відповідає вашим потребам і фінансовим можливостям.",
+    "different.item1.desc": "Ми знаємо, що можна купити в АТБ, Сільпо чи на базарі.",
+    "different.item2.title": "Персоналізація",
+    "different.item2.desc": "Враховуємо ваші цілі, алергії, уподобання та те, скільки часу у вас є на приготування.",
+    "different.item3.title": "Реальний бюджет",
+    "different.item3.desc": "Плануємо раціон, який не вдарить по гаманцю.",
     "different.item4.title": "Гнучкість",
-    "different.item4.desc": "Легко адаптується до ваших змін - потреб, звичок і ритму життя.",
-    "different.trust": "Підтримано наукою та експертами",
-    "different.sources": "Наукових джерел",
+    "different.item4.desc": "Легко адаптується до ваших змін - настрій, сезон, можливості.",
+    "different.trust": "Раціони формуються на основі перевірених нутриціологічних принципів, а не модних трендів.",
+    "different.sources": "Науково обґрунтовані рекомендації",
     "different.experts": "Експертів",
-    "different.products": "Продуктів в базі",
+    "different.products": "Продукти українських мереж",
+    "different.diets": "Підтримка різних типів харчування",
 
     // Partners visual
     "partners.program": "Партнерська програма",
@@ -144,9 +146,9 @@ const translations = {
     "partners.cta": "Стати партнером",
 
     // Waitlist
-    "waitlist.label": "Приєднатися",
-    "waitlist.headline": "Будьте першими, хто спробує NutriLife",
-    "waitlist.desc": "Залиште свій email і отримайте ранній доступ до бета-версії.",
+    "waitlist.label": "Ранній доступ",
+    "waitlist.headline": "Спробуйте NutriLife одними з перших",
+    "waitlist.desc": "Залиште email — ми повідомимо, коли відкриємо бета-доступ.",
     "waitlist.placeholder": "Ваш email",
     "waitlist.button": "Приєднатися до списку очікування",
     "waitlist.privacy": "Ми поважаємо вашу приватність і не будемо спамити.",
@@ -171,7 +173,7 @@ const translations = {
     "faq.contact": "Не знайшли відповіді? Напишіть нам на",
 
     // Footer
-    "footer.tagline": "Персональний помічник зі здорового харчування під ваші цілі, бюджет і вподобання.",
+    "footer.tagline": "Smart nutrition assistant для здорового харчування в Україні.",
     "footer.product": "Продукт",
     "footer.company": "Компанія",
     "footer.contact": "Контакти",
@@ -194,7 +196,7 @@ const translations = {
     "nav.waitlist": "Join",
 
     // Hero
-    "hero.badge": "Smart Nutrition Assistant",
+    "hero.badge": "Nutrition helper",
     "hero.headline": "Personalized Nutrition for Real Life in Ukraine",
     "hero.stats.recipes": "Recipes",
     "hero.stats.local": "Local Products",
@@ -206,9 +208,10 @@ const translations = {
     "hero.meal.dinner": "Dinner",
     "hero.meal.dinner.desc": "Fish with rice",
     "hero.dailyGoal": "Daily Goal",
-    "hero.health": "Health",
-    "hero.spending": "Spending",
-    "hero.subheadline": "NutriLife is a smart nutrition assistant that helps you create a convenient meal plan based on your goals, budget, preferences, and products actually available near you.",
+    "hero.health": "Health status",
+    "hero.spending": "Food spending",
+    "hero.spendingDesc": "Staying within budget",
+    "hero.subheadline": "NutriLife helps you put together a practical meal plan that fits your goals, budget, and taste — built around products available at your local store.",
     "hero.cta.primary": "Be the First to Try",
     "hero.cta.secondary": "Learn More",
 
@@ -227,7 +230,7 @@ const translations = {
     // Solution
     "solution.label": "The Solution",
     "solution.headline": "NutriLife Creates a Personal Meal Plan for You",
-    "solution.desc": "We consider your goals, budget, preferences, and products available in Ukrainian stores to create a realistic and healthy diet.",
+    "solution.desc": "You share your goals, budget, and preferences — and get a meal plan built from products available in Ukrainian stores. No exotic ingredients, no unnecessary cost.",
     "solution.feature1": "Personalized Recipes",
     "solution.feature2": "Local Products",
     "solution.feature3": "Smart Budget",
@@ -246,7 +249,7 @@ const translations = {
     "howItWorks.step1.title": "Tell Us About Yourself",
     "howItWorks.step1.desc": "Share your goals, preferences, allergies, and budget.",
     "howItWorks.step2.title": "Get Your Plan",
-    "howItWorks.step2.desc": "AI creates a personalized weekly meal plan with recipes and shopping list.",
+    "howItWorks.step2.desc": "The app builds a weekly meal plan with recipes and a shopping list tailored to your needs.",
     "howItWorks.step3.title": "Enjoy",
     "howItWorks.step3.desc": "Cook delicious meals and achieve your goals every day.",
 
@@ -284,16 +287,17 @@ const translations = {
     "different.headline": "Why NutriLife is Different",
     "different.item1.title": "Local Focus",
     "different.item1.desc": "We know what you can buy at ATB, Silpo, or the local market.",
-    "different.item2.title": "AI + Science",
-    "different.item2.desc": "Combining artificial intelligence with evidence-based nutrition.",
+    "different.item2.title": "Personalization",
+    "different.item2.desc": "We factor in your goals, allergies, preferences, and how much time you have to cook.",
     "different.item3.title": "Real Budget",
     "different.item3.desc": "Planning meals that won't break the bank.",
     "different.item4.title": "Flexibility",
     "different.item4.desc": "Easily adapts to your changes - mood, season, possibilities.",
-    "different.trust": "Backed by Science and Experts",
-    "different.sources": "Scientific sources",
+    "different.trust": "Meal plans are built on established nutrition principles, not trending fads.",
+    "different.sources": "Evidence-based recommendations",
     "different.experts": "Experts",
-    "different.products": "Products in database",
+    "different.products": "Products from Ukrainian retailers",
+    "different.diets": "Support for multiple diet types",
 
     // Partners visual
     "partners.program": "Partner Program",
@@ -318,9 +322,9 @@ const translations = {
     "partners.cta": "Become a Partner",
 
     // Waitlist
-    "waitlist.label": "Join",
-    "waitlist.headline": "Be the First to Try NutriLife",
-    "waitlist.desc": "Leave your email and get early access to the beta version.",
+    "waitlist.label": "Early access",
+    "waitlist.headline": "Be among the first to try NutriLife",
+    "waitlist.desc": "Leave your email and we'll let you know when beta access opens.",
     "waitlist.placeholder": "Your email",
     "waitlist.button": "Join the Waitlist",
     "waitlist.privacy": "We respect your privacy and won't spam you.",

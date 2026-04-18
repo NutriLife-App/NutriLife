@@ -35,21 +35,21 @@ export function ProductPreview() {
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             {/* Feature list */}
             <div ref={featuresRef} className="order-2 lg:order-1">
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {features.map((feature, index) => (
                   <div
                     key={index}
                     className={cn(
-                      "flex items-center gap-4 rounded-2xl border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:shadow-md scroll-hidden",
+                      "group flex items-center gap-4 rounded-2xl border border-border bg-card p-5 shadow-sm transition-all duration-250 ease-out hover:-translate-y-0.5 hover:border-primary/30 hover:bg-primary/[0.02] hover:shadow-lg hover:shadow-primary/8 scroll-hidden",
                       featuresVisible && animationVariants.fadeRight
                     )}
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 transition-colors duration-200 group-hover:bg-primary/18">
                       <feature.icon className="h-6 w-6 text-primary" />
                     </div>
-                    <span className="text-lg font-medium text-foreground">{feature.text}</span>
-                    <Check className="ml-auto h-5 w-5 text-primary" />
+                    <span className="flex-1 text-base font-medium text-foreground">{feature.text}</span>
+                    <Check className="ml-auto h-5 w-5 text-primary/50 transition-all duration-200 group-hover:text-primary" />
                   </div>
                 ))}
               </div>

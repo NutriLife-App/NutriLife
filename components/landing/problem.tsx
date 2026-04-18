@@ -52,20 +52,20 @@ export function Problem() {
             <div
               key={index}
               className={cn(
-                "group relative rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:shadow-primary/5 scroll-hidden",
+                "group relative rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-250 ease-out hover:-translate-y-0.5 hover:border-destructive/20 hover:shadow-md hover:shadow-destructive/5 scroll-hidden",
                 cardsVisible && animationVariants.fadeUp
               )}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="flex gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-destructive/10 transition-colors group-hover:bg-destructive/20">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-destructive/10 transition-colors duration-200 group-hover:bg-destructive/15">
                   <problem.icon className="h-6 w-6 text-destructive" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-foreground">
                     {problem.title}
                   </h3>
-                  <p className="mt-2 text-muted-foreground">{problem.description}</p>
+                  <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-foreground">{problem.description}</p>
                 </div>
               </div>
             </div>

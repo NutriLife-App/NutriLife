@@ -56,19 +56,19 @@ export function ForWhom() {
             <div
               key={index}
               className={cn(
-                "group relative overflow-hidden rounded-2xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 scroll-hidden",
+                "group relative overflow-hidden rounded-2xl border border-border bg-card p-8 shadow-sm transition-all duration-250 ease-out hover:-translate-y-1 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/8 scroll-hidden",
                 cardsVisible && animationVariants.fadeUp
               )}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className={`mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl ${audience.color}`}>
+              <div className={`mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl transition-transform duration-250 group-hover:scale-105 ${audience.color}`}>
                 <audience.icon className="h-7 w-7" />
               </div>
               <h3 className="text-xl font-semibold text-foreground">{audience.title}</h3>
-              <p className="mt-3 text-muted-foreground">{audience.description}</p>
+              <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">{audience.description}</p>
 
               {/* Decorative corner */}
-              <div className="absolute -bottom-20 -right-20 h-40 w-40 rounded-full bg-primary/5 transition-all duration-300 group-hover:scale-150" />
+              <div className="pointer-events-none absolute -bottom-20 -right-20 h-40 w-40 rounded-full bg-primary/5 opacity-0 blur-xl transition-all duration-400 group-hover:opacity-100" />
             </div>
           ))}
         </div>

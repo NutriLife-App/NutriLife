@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useLanguage } from "@/lib/language-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Loader2, Check, Sparkles, Mail } from "lucide-react"
+import { Loader2, Check, Mail } from "lucide-react"
 import { AnimatedSection } from "@/components/ui/animated-section"
 
 const WAITLIST_ENDPOINT = process.env.NEXT_PUBLIC_WAITLIST_ENDPOINT
@@ -69,8 +69,8 @@ export function Waitlist() {
           </div>
 
           <AnimatedSection animation="scaleUp" className="relative mx-auto max-w-2xl text-center">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary-foreground/20 px-4 py-2 text-sm font-medium text-primary-foreground">
-              <Sparkles className="h-4 w-4" />
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary-foreground/15 px-4 py-2 text-sm font-medium text-primary-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary-foreground/80" />
               <span>{t("waitlist.label")}</span>
             </div>
 
@@ -114,23 +114,6 @@ export function Waitlist() {
                 <p className="mt-4 text-sm text-primary-foreground/60">{t("waitlist.privacy")}</p>
               </form>
             )}
-
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-8">
-              <div className="flex -space-x-3">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <div
-                    key={i}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-primary bg-primary-foreground text-sm font-medium text-primary"
-                  >
-                    {["🧑", "👩", "👨", "👩‍🦱", "🧔"][i - 1]}
-                  </div>
-                ))}
-              </div>
-              <p className="text-primary-foreground/80">
-                <span className="font-semibold text-primary-foreground">1,200+</span>{" "}
-                {t("waitlist.joined")}
-              </p>
-            </div>
           </AnimatedSection>
         </div>
       </div>

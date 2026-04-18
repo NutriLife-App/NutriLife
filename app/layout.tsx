@@ -11,8 +11,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "NutriLife - Персоналізоване харчування для України",
   description:
-    "NutriLife - це smart nutrition assistant, який допомагає створити зручний раціон під ваші цілі, бюджет, уподобання та продукти, які справді можна купити поруч.",
-  keywords: ["харчування", "дієта", "здорове харчування", "Україна", "meal plan", "nutrition", "AI"],
+    "NutriLife допомагає скласти персональний раціон із реальних продуктів, які є в українських магазинах — під ваші цілі, бюджет та смаки.",
+  keywords: ["харчування", "дієта", "здорове харчування", "Україна", "meal plan", "nutrition", "планування раціону"],
   authors: [{ name: "NutriLife Team" }],
   icons: {
     icon: [

@@ -26,7 +26,7 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/30 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/70">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary">
@@ -40,31 +40,32 @@ export function Header() {
             <button
               key={item.key}
               onClick={() => scrollToSection(item.href)}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              className="group relative text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
             >
               {t(item.key)}
+              <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" />
             </button>
           ))}
         </nav>
 
         <div className="flex items-center gap-3">
-          <div className="flex items-center rounded-full bg-secondary p-1">
+          <div className="flex items-center rounded-full border border-border/60 bg-secondary p-1">
             <button
               onClick={() => setLanguage("ua")}
-              className={`rounded-full px-3 py-1.5 text-sm font-medium transition-all ${
+              className={`rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-200 ${
                 language === "ua"
                   ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
+                  : "text-muted-foreground hover:bg-background hover:text-foreground"
               }`}
             >
               UA
             </button>
             <button
               onClick={() => setLanguage("en")}
-              className={`rounded-full px-3 py-1.5 text-sm font-medium transition-all ${
+              className={`rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-200 ${
                 language === "en"
                   ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
+                  : "text-muted-foreground hover:bg-background hover:text-foreground"
               }`}
             >
               EN
@@ -92,23 +93,23 @@ export function Header() {
                   <span className="text-xl font-semibold text-foreground">NutriLife</span>
                 </a>
 
-                <div className="flex items-center rounded-full bg-secondary p-1">
+                <div className="flex items-center rounded-full border border-border/60 bg-secondary p-1">
                   <button
                     onClick={() => setLanguage("ua")}
-                    className={`flex-1 rounded-full px-3 py-2 text-sm font-medium transition-all ${
+                    className={`flex-1 rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 ${
                       language === "ua"
                         ? "bg-primary text-primary-foreground shadow-sm"
-                        : "text-muted-foreground hover:text-foreground"
+                        : "text-muted-foreground hover:bg-background hover:text-foreground"
                     }`}
                   >
                     UA
                   </button>
                   <button
                     onClick={() => setLanguage("en")}
-                    className={`flex-1 rounded-full px-3 py-2 text-sm font-medium transition-all ${
+                    className={`flex-1 rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 ${
                       language === "en"
                         ? "bg-primary text-primary-foreground shadow-sm"
-                        : "text-muted-foreground hover:text-foreground"
+                        : "text-muted-foreground hover:bg-background hover:text-foreground"
                     }`}
                   >
                     EN
@@ -120,7 +121,7 @@ export function Header() {
                     <button
                       key={item.key}
                       onClick={() => scrollToSection(item.href)}
-                      className="text-left text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
+                      className="text-left text-base font-medium text-muted-foreground transition-colors duration-200 hover:text-primary"
                     >
                       {t(item.key)}
                     </button>

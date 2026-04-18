@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/lib/language-context"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Sparkles, Apple, Salad, Heart } from "lucide-react"
+import { ArrowRight, Apple, Salad, Heart } from "lucide-react"
 
 export function Hero() {
   const { t } = useLanguage()
@@ -27,8 +27,8 @@ export function Hero() {
           {/* Text content */}
           <div className="flex flex-col items-start">
             {/* Badge */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
-              <Sparkles className="h-4 w-4" />
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-2 text-sm font-medium text-primary">
+              <span className="text-base">🌿</span>
               <span>{t("hero.badge")}</span>
             </div>
 
@@ -58,22 +58,6 @@ export function Hero() {
               >
                 {t("hero.cta.secondary")}
               </Button>
-            </div>
-
-            {/* Stats */}
-            <div className="mt-12 flex flex-wrap gap-8">
-              <div>
-                <p className="text-3xl font-bold text-foreground">2000+</p>
-                <p className="text-sm text-muted-foreground">{t("hero.stats.recipes")}</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-foreground">100%</p>
-                <p className="text-sm text-muted-foreground">{t("hero.stats.local")}</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-foreground">AI</p>
-                <p className="text-sm text-muted-foreground">{t("hero.stats.ai")}</p>
-              </div>
             </div>
           </div>
 
@@ -137,27 +121,15 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* Floating elements */}
-              <div className="absolute -left-6 top-8 rounded-2xl border border-border bg-card p-4 shadow-lg">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
-                    <span className="text-lg">🥗</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-foreground">+15%</p>
-                    <p className="text-xs text-muted-foreground">{t("hero.health")}</p>
-                  </div>
-                </div>
-              </div>
-
+              {/* Floating badge — budget indicator */}
               <div className="absolute -bottom-4 -right-4 rounded-2xl border border-border bg-card p-4 shadow-lg sm:-right-6">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20">
                     <span className="text-lg">💰</span>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-foreground">-20%</p>
-                    <p className="text-xs text-muted-foreground">{t("hero.spending")}</p>
+                    <p className="text-sm font-medium text-foreground">{t("hero.spending")}</p>
+                    <p className="text-xs text-muted-foreground">{t("hero.spendingDesc")}</p>
                   </div>
                 </div>
               </div>

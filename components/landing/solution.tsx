@@ -89,13 +89,16 @@ export function Solution() {
               {features.map((feature, index) => (
                 <div
                   key={index}
-                  className={cn("flex items-center gap-3 scroll-hidden", featuresVisible && animationVariants.fadeUp)}
+                  className={cn(
+                    "group flex items-center gap-3 rounded-xl border border-transparent bg-secondary/60 p-4 transition-all duration-250 ease-out hover:border-primary/20 hover:bg-primary/5 scroll-hidden",
+                    featuresVisible && animationVariants.fadeUp
+                  )}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 transition-colors duration-200 group-hover:bg-primary/18">
                     <feature.icon className="h-5 w-5 text-primary" />
                   </div>
-                  <span className="font-medium text-foreground">{feature.text}</span>
+                  <span className="text-[0.9375rem] font-medium text-foreground">{feature.text}</span>
                 </div>
               ))}
             </div>

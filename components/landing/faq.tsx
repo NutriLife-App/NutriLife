@@ -38,21 +38,21 @@ export function FAQ() {
 
         {/* FAQ list */}
         <div ref={accordionRef} className="mx-auto mt-16 max-w-3xl">
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
                 className={cn(
-                  "rounded-2xl border border-border bg-card px-6 shadow-sm scroll-hidden",
+                  "group rounded-2xl border border-border bg-card px-6 shadow-sm transition-all duration-250 ease-out hover:border-primary/30 hover:shadow-md hover:shadow-primary/5 data-[state=open]:border-primary/20 data-[state=open]:shadow-md scroll-hidden",
                   accordionVisible && animationVariants.fadeUp
                 )}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <AccordionTrigger className="py-5 text-left text-lg font-medium hover:no-underline">
+                <AccordionTrigger className="py-5 text-left text-base font-medium text-foreground transition-colors hover:text-primary hover:no-underline [&[data-state=open]]:text-primary">
                   {faq.q}
                 </AccordionTrigger>
-                <AccordionContent className="pb-5 text-muted-foreground">
+                <AccordionContent className="pb-5 text-[0.9375rem] leading-relaxed text-muted-foreground">
                   {faq.a}
                 </AccordionContent>
               </AccordionItem>

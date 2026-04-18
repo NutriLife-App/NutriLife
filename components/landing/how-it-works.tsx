@@ -60,15 +60,15 @@ export function HowItWorks() {
                   <div className="flex flex-col items-center text-center">
                     {/* Number + Icon */}
                     <div className="relative z-10 mb-6">
-                      <div className="flex h-[120px] w-[120px] flex-col items-center justify-center rounded-full border-2 border-primary bg-card shadow-lg">
+                      <div className="group flex h-[120px] w-[120px] flex-col items-center justify-center rounded-full border-2 border-primary/60 bg-card shadow-lg transition-all duration-250 ease-out hover:border-primary hover:shadow-[0_8px_32px_oklch(0.55_0.18_145_/_0.18)]">
                         <span className="text-2xl font-bold text-primary">{step.number}</span>
-                        <step.icon className="mt-1 h-8 w-8 text-muted-foreground" />
+                        <step.icon className="mt-1 h-8 w-8 text-muted-foreground transition-colors duration-200 group-hover:text-primary" />
                       </div>
                     </div>
 
                     {/* Content */}
                     <h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
-                    <p className="mt-3 max-w-xs text-muted-foreground">{step.description}</p>
+                    <p className="mt-3 max-w-xs text-[0.9375rem] leading-relaxed text-muted-foreground">{step.description}</p>
                   </div>
                 </div>
               ))}

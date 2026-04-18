@@ -53,7 +53,7 @@ export function Footer() {
               <ul className="mt-4 space-y-3">
                 {productLinks.map((link) => (
                   <li key={link.key}>
-                    <a href={link.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                    <a href={link.href} className="group inline-flex text-sm text-muted-foreground transition-colors duration-200 hover:text-primary">
                       {t(link.key)}
                     </a>
                   </li>
@@ -66,7 +66,7 @@ export function Footer() {
               <ul className="mt-4 space-y-3">
                 {companyLinks.map((link) => (
                   <li key={link.key}>
-                    <a href={link.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                    <a href={link.href} className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary">
                       {t(link.key)}
                     </a>
                   </li>
@@ -79,7 +79,7 @@ export function Footer() {
               <ul className="mt-4 space-y-3">
                 {legalLinks.map((link) => (
                   <li key={link.key}>
-                    <a href={link.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                    <a href={link.href} className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary">
                       {t(link.key)}
                     </a>
                   </li>

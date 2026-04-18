@@ -54,43 +54,43 @@ export function WhyDifferent() {
               <div
                 key={index}
                 className={cn(
-                  "group relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 scroll-hidden",
+                  "group relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-250 ease-out hover:-translate-y-1 hover:border-primary/25 hover:shadow-xl hover:shadow-primary/8 scroll-hidden",
                   index === 0 || index === 3 ? "lg:col-span-2" : "",
                   gridVisible && animationVariants.scaleUp
                 )}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="relative z-10">
-                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 transition-colors group-hover:bg-primary/20">
+                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 transition-colors duration-200 group-hover:bg-primary/20">
                     <item.icon className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
-                  <p className="mt-2 text-muted-foreground">{item.description}</p>
+                  <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-foreground">{item.description}</p>
                 </div>
 
-                {/* Hover effect */}
-                <div className="absolute -bottom-24 -right-24 h-48 w-48 rounded-full bg-primary/5 opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110" />
+                {/* Subtle hover glow */}
+                <div className="pointer-events-none absolute -bottom-16 -right-16 h-40 w-40 rounded-full bg-primary/8 opacity-0 blur-2xl transition-all duration-500 group-hover:opacity-100" />
               </div>
             ))}
           </div>
         </div>
 
-        {/* Trust indicators */}
+        {/* Trust note */}
         <div
           ref={trustRef}
           className={cn("mx-auto mt-16 max-w-4xl scroll-hidden", trustVisible && animationVariants.fadeUp)}
         >
           <div className="rounded-2xl border border-border bg-card p-8 text-center shadow-sm">
-            <p className="text-lg text-muted-foreground">{t("different.trust")}</p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-8">
+            <p className="text-base leading-relaxed text-muted-foreground">{t("different.trust")}</p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-6 sm:gap-10">
               {[
-                { value: "100+", label: t("different.sources") },
-                { value: "15+", label: t("different.experts") },
-                { value: "5000+", label: t("different.products") },
-              ].map((stat, i) => (
-                <div key={i} className="text-center">
-                  <p className="text-3xl font-bold text-primary">{stat.value}</p>
-                  <p className="text-sm text-muted-foreground">{stat.label}</p>
+                { emoji: "🧪", label: t("different.sources") },
+                { emoji: "🇺🇦", label: t("different.products") },
+                { emoji: "🥗", label: t("different.diets") },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <span className="text-xl">{item.emoji}</span>
+                  <span>{item.label}</span>
                 </div>
               ))}
             </div>
