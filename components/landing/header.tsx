@@ -31,7 +31,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/30 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/70">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <button onClick={handleLogoClick} className="flex items-center gap-2.5">
+        <button onClick={handleLogoClick} className="flex cursor-pointer items-center gap-2.5 transition-opacity duration-200 hover:opacity-80">
           <div className="relative h-9 w-9 overflow-hidden rounded-xl">
             <Image
               src="/logo-mark.png"
@@ -95,7 +95,7 @@ export function Header() {
             <SheetContent side="right" className="w-[300px] bg-background">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col gap-6 pt-6">
-                <button onClick={handleLogoClick} className="flex items-center gap-2.5">
+                <button onClick={handleLogoClick} className="flex cursor-pointer items-center gap-2.5 transition-opacity duration-200 hover:opacity-80">
                   <div className="relative h-9 w-9 overflow-hidden rounded-xl">
                     <Image
                       src="/logo-mark.png"
