@@ -1,7 +1,7 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { LayoutDashboard, CalendarDays, ShoppingCart, TrendingUp, Check } from "lucide-react"
+import { LayoutDashboard, CalendarDays, ShoppingCart, TrendingUp, Check, Egg, Soup, Utensils } from "lucide-react"
 import { AnimatedSection } from "@/components/ui/animated-section"
 import { useScrollAnimation, animationVariants } from "@/hooks/use-scroll-animation"
 import { cn } from "@/lib/utils"
@@ -94,15 +94,17 @@ export function ProductPreview() {
                     <div className="p-4">
                       <div className="space-y-3">
                         {[
-                          { emoji: "🥣", name: t("preview.syrnyky"), time: "08:00", cal: "380" },
-                          { emoji: "🥗", name: t("preview.borscht"), time: "13:00", cal: "350" },
-                          { emoji: "🍗", name: t("preview.cutlets"), time: "19:00", cal: "520" },
+                          { icon: Egg, name: t("preview.syrnyky"), time: "08:00", cal: "380" },
+                          { icon: Soup, name: t("preview.borscht"), time: "13:00", cal: "350" },
+                          { icon: Utensils, name: t("preview.cutlets"), time: "19:00", cal: "520" },
                         ].map((meal, i) => (
                           <div
                             key={i}
                             className="flex items-center gap-3 rounded-xl bg-secondary p-3"
                           >
-                            <span className="text-2xl">{meal.emoji}</span>
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                              <meal.icon className="h-4 w-4 text-primary" />
+                            </div>
                             <div className="flex-1">
                               <p className="font-medium text-foreground">{meal.name}</p>
                               <p className="text-xs text-muted-foreground">{meal.time}</p>

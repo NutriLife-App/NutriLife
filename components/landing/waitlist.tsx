@@ -4,11 +4,8 @@ import { useState } from "react"
 import { useLanguage } from "@/lib/language-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Loader2, Check, Mail } from "lucide-react"
+import { Loader2, Check, Mail, AlertCircle } from "lucide-react"
 import { AnimatedSection } from "@/components/ui/animated-section"
-
-const WAITLIST_ENDPOINT = process.env.NEXT_PUBLIC_WAITLIST_ENDPOINT
-const WAITLIST_EMAIL = "yurii.korenets@gmail.com"
 
 export function Waitlist() {
   const { t } = useLanguage()
@@ -17,11 +14,20 @@ export function Waitlist() {
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState("")
 
+  const validateEmail = (value: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
 
-    if (!email || !email.includes("@")) {
+    if (!email.trim()) {
+      setError(t("waitlist.emailError"))
+      return
+    }
+
+    if (!validateEmail(email)) {
       setError(t("waitlist.emailError"))
       return
     }
@@ -29,31 +35,23 @@ export function Waitlist() {
     setIsLoading(true)
 
     try {
-      if (WAITLIST_ENDPOINT) {
-        const response = await fetch(WAITLIST_ENDPOINT, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            source: "nutrilife-landing",
-          }),
-        })
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      })
 
-        if (!response.ok) {
-          throw new Error("Request failed")
-        }
-      } else {
-        const subject = encodeURIComponent("NutriLife waitlist")
-        const body = encodeURIComponent(`Please add this email to the NutriLife waitlist: ${email}`)
-        window.location.href = `mailto:${WAITLIST_EMAIL}?subject=${subject}&body=${body}`
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Request failed")
       }
 
       setIsSuccess(true)
       setEmail("")
-    } catch {
-      setError(t("waitlist.emailError"))
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : ""
+      setError(message || t("waitlist.submitError"))
     } finally {
       setIsLoading(false)
     }
@@ -81,28 +79,41 @@ export function Waitlist() {
 
             {isSuccess ? (
               <div className="mx-auto mt-8 flex max-w-md items-center justify-center gap-3 rounded-2xl bg-primary-foreground/20 p-6 backdrop-blur">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-foreground">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary-foreground">
                   <Check className="h-6 w-6 text-primary" />
                 </div>
-                <p className="text-lg font-medium text-primary-foreground">{t("waitlist.success")}</p>
+                <p className="text-left text-base font-medium text-primary-foreground">
+                  {t("waitlist.success")}
+                </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="mx-auto mt-8 max-w-md">
+              <form onSubmit={handleSubmit} className="mx-auto mt-8 max-w-md" noValidate>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <div className="relative flex-1">
-                    <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                    <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
                     <Input
                       type="email"
                       placeholder={t("waitlist.placeholder")}
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="h-12 bg-primary-foreground pl-12 text-foreground placeholder:text-muted-foreground"
+                      onChange={(e) => {
+                        setEmail(e.target.value)
+                        if (error) setError("")
+                      }}
+                      className="h-12 bg-primary-foreground pl-12 text-foreground placeholder:text-muted-foreground focus-visible:ring-primary-foreground/50"
+                      aria-label="Email address"
+                      autoComplete="email"
                     />
                   </div>
-                  <Button type="submit" disabled={isLoading} variant="secondary" size="lg" className="h-12 whitespace-nowrap px-6">
+                  <Button
+                    type="submit"
+                    disabled={isLoading}
+                    variant="secondary"
+                    size="lg"
+                    className="h-12 cursor-pointer whitespace-nowrap px-6"
+                  >
                     {isLoading ? (
                       <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        <Loader2 className="h-4 w-4 animate-spin" />
                         {t("waitlist.loading")}
                       </>
                     ) : (
@@ -110,7 +121,14 @@ export function Waitlist() {
                     )}
                   </Button>
                 </div>
-                {error && <p className="mt-2 text-sm text-destructive-foreground">{error}</p>}
+
+                {error && (
+                  <div className="mt-3 flex items-center gap-2 text-sm text-primary-foreground/90">
+                    <AlertCircle className="h-4 w-4 shrink-0" />
+                    <span>{error}</span>
+                  </div>
+                )}
+
                 <p className="mt-4 text-sm text-primary-foreground/60">{t("waitlist.privacy")}</p>
               </form>
             )}

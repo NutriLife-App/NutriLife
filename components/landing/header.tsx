@@ -2,9 +2,11 @@
 
 import { useState } from "react"
 import { useLanguage } from "@/lib/language-context"
+import { scrollToSection } from "@/lib/scroll"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
-import { Menu, Leaf } from "lucide-react"
+import { Menu } from "lucide-react"
+import Image from "next/image"
 
 export function Header() {
   const { language, setLanguage, t } = useLanguage()
@@ -17,20 +19,23 @@ export function Header() {
     { key: "nav.faq", href: "#faq" },
   ]
 
-  const scrollToSection = (href: string) => {
+  const handleNav = (href: string) => {
     setIsOpen(false)
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
-    }
+    scrollToSection(href)
   }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/30 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/70">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary">
-            <Leaf className="h-5 w-5 text-primary-foreground" />
+        <a href="/" className="flex items-center gap-2.5">
+          <div className="relative h-9 w-9 overflow-hidden rounded-xl">
+            <Image
+              src="/logo-mark.png"
+              alt="NutriLife logo"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
           <span className="text-xl font-semibold text-foreground">NutriLife</span>
         </a>
@@ -39,8 +44,8 @@ export function Header() {
           {navItems.map((item) => (
             <button
               key={item.key}
-              onClick={() => scrollToSection(item.href)}
-              className="group relative text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
+              onClick={() => handleNav(item.href)}
+              className="group relative cursor-pointer text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
             >
               {t(item.key)}
               <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" />
@@ -52,7 +57,7 @@ export function Header() {
           <div className="flex items-center rounded-full border border-border/60 bg-secondary p-1">
             <button
               onClick={() => setLanguage("ua")}
-              className={`rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-200 ${
+              className={`cursor-pointer rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-200 ${
                 language === "ua"
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:bg-background hover:text-foreground"
@@ -62,7 +67,7 @@ export function Header() {
             </button>
             <button
               onClick={() => setLanguage("en")}
-              className={`rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-200 ${
+              className={`cursor-pointer rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-200 ${
                 language === "en"
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:bg-background hover:text-foreground"
@@ -72,7 +77,7 @@ export function Header() {
             </button>
           </div>
 
-          <Button onClick={() => scrollToSection("#waitlist")} className="hidden sm:flex" size="sm">
+          <Button onClick={() => handleNav("#waitlist")} className="hidden sm:flex" size="sm">
             {t("nav.waitlist")}
           </Button>
 
@@ -86,9 +91,14 @@ export function Header() {
             <SheetContent side="right" className="w-[300px] bg-background">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col gap-6 pt-6">
-                <a href="/" className="flex items-center gap-2">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary">
-                    <Leaf className="h-5 w-5 text-primary-foreground" />
+                <a href="/" className="flex items-center gap-2.5">
+                  <div className="relative h-9 w-9 overflow-hidden rounded-xl">
+                    <Image
+                      src="/logo-mark.png"
+                      alt="NutriLife logo"
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                   <span className="text-xl font-semibold text-foreground">NutriLife</span>
                 </a>
@@ -96,7 +106,7 @@ export function Header() {
                 <div className="flex items-center rounded-full border border-border/60 bg-secondary p-1">
                   <button
                     onClick={() => setLanguage("ua")}
-                    className={`flex-1 rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 ${
+                    className={`flex-1 cursor-pointer rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 ${
                       language === "ua"
                         ? "bg-primary text-primary-foreground shadow-sm"
                         : "text-muted-foreground hover:bg-background hover:text-foreground"
@@ -106,7 +116,7 @@ export function Header() {
                   </button>
                   <button
                     onClick={() => setLanguage("en")}
-                    className={`flex-1 rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 ${
+                    className={`flex-1 cursor-pointer rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 ${
                       language === "en"
                         ? "bg-primary text-primary-foreground shadow-sm"
                         : "text-muted-foreground hover:bg-background hover:text-foreground"
@@ -120,14 +130,14 @@ export function Header() {
                   {navItems.map((item) => (
                     <button
                       key={item.key}
-                      onClick={() => scrollToSection(item.href)}
-                      className="text-left text-base font-medium text-muted-foreground transition-colors duration-200 hover:text-primary"
+                      onClick={() => handleNav(item.href)}
+                      className="cursor-pointer text-left text-base font-medium text-muted-foreground transition-colors duration-200 hover:text-primary"
                     >
                       {t(item.key)}
                     </button>
                   ))}
                 </nav>
-                <Button onClick={() => scrollToSection("#waitlist")} className="w-full">
+                <Button onClick={() => handleNav("#waitlist")} className="w-full">
                   {t("nav.waitlist")}
                 </Button>
               </div>

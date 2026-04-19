@@ -1,7 +1,8 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { Leaf, Mail } from "lucide-react"
+import { Mail } from "lucide-react"
+import Image from "next/image"
 
 export function Footer() {
   const { t } = useLanguage()
@@ -31,9 +32,14 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid gap-12 lg:grid-cols-4">
           <div className="lg:col-span-1">
-            <a href="/" className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary">
-                <Leaf className="h-5 w-5 text-primary-foreground" />
+            <a href="/" className="flex items-center gap-2.5">
+              <div className="relative h-9 w-9 overflow-hidden rounded-xl">
+                <Image
+                  src="/logo-mark.png"
+                  alt="NutriLife logo"
+                  fill
+                  className="object-cover"
+                />
               </div>
               <span className="text-xl font-semibold text-foreground">NutriLife</span>
             </a>

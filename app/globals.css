@@ -123,6 +123,16 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Ensure pointer cursor on all interactive elements */
+  button:not([disabled]),
+  [role="button"]:not([disabled]),
+  a[href],
+  label[for],
+  select,
+  summary {
+    cursor: pointer;
+  }
 }
 
 /* Smooth scrolling */
