@@ -61,21 +61,27 @@ export function Header() {
           <div className="flex items-center rounded-full border border-border/60 bg-secondary p-1">
             <button
               onClick={() => setLanguage("ua")}
-              className={`cursor-pointer rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-300 ${
+              className={`cursor-pointer rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-500 ease-out ${
                 language === "ua"
-                  ? "scale-105 bg-primary text-primary-foreground shadow-sm"
+                  ? "scale-110 bg-primary text-primary-foreground shadow-lg"
                   : "text-muted-foreground hover:bg-background hover:text-foreground"
               }`}
+              style={{
+                transform: language === "ua" ? "scale(1.1) translateY(-1px)" : "scale(1) translateY(0)",
+              }}
             >
               UA
             </button>
             <button
               onClick={() => setLanguage("en")}
-              className={`cursor-pointer rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-300 ${
+              className={`cursor-pointer rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-500 ease-out ${
                 language === "en"
-                  ? "scale-105 bg-primary text-primary-foreground shadow-sm"
+                  ? "scale-110 bg-primary text-primary-foreground shadow-lg"
                   : "text-muted-foreground hover:bg-background hover:text-foreground"
               }`}
+              style={{
+                transform: language === "en" ? "scale(1.1) translateY(-1px)" : "scale(1) translateY(0)",
+              }}
             >
               EN
             </button>
@@ -110,21 +116,27 @@ export function Header() {
                 <div className="flex items-center rounded-full border border-border/60 bg-secondary p-1">
                   <button
                     onClick={() => setLanguage("ua")}
-                    className={`flex-1 cursor-pointer rounded-full px-3 py-2 text-sm font-medium transition-all duration-300 ${
+                    className={`flex-1 cursor-pointer rounded-full px-3 py-2 text-sm font-medium transition-all duration-500 ease-out ${
                       language === "ua"
-                        ? "scale-105 bg-primary text-primary-foreground shadow-sm"
+                        ? "scale-110 bg-primary text-primary-foreground shadow-lg"
                         : "text-muted-foreground hover:bg-background hover:text-foreground"
                     }`}
+                    style={{
+                      transform: language === "ua" ? "scale(1.1) translateY(-1px)" : "scale(1) translateY(0)",
+                    }}
                   >
                     UA
                   </button>
                   <button
                     onClick={() => setLanguage("en")}
-                    className={`flex-1 cursor-pointer rounded-full px-3 py-2 text-sm font-medium transition-all duration-300 ${
+                    className={`flex-1 cursor-pointer rounded-full px-3 py-2 text-sm font-medium transition-all duration-500 ease-out ${
                       language === "en"
-                        ? "scale-105 bg-primary text-primary-foreground shadow-sm"
+                        ? "scale-110 bg-primary text-primary-foreground shadow-lg"
                         : "text-muted-foreground hover:bg-background hover:text-foreground"
                     }`}
+                    style={{
+                      transform: language === "en" ? "scale(1.1) translateY(-1px)" : "scale(1) translateY(0)",
+                    }}
                   >
                     EN
                   </button>
