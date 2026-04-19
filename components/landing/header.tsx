@@ -5,6 +5,7 @@ import { useLanguage } from "@/lib/language-context"
 import { scrollToSection } from "@/lib/scroll"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
+import { LanguageTransitionWrapper } from "@/components/language-transition-wrapper"
 import { Menu } from "lucide-react"
 import Image from "next/image"
 
@@ -44,18 +45,20 @@ export function Header() {
           <span className="text-xl font-semibold text-foreground">NutriLife</span>
         </button>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          {navItems.map((item) => (
-            <button
-              key={item.key}
-              onClick={() => handleNav(item.href)}
-              className="group relative cursor-pointer text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
-            >
-              {t(item.key)}
-              <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" />
-            </button>
-          ))}
-        </nav>
+        <LanguageTransitionWrapper className="hidden md:flex items-center gap-8">
+          <nav className="flex items-center gap-8">
+            {navItems.map((item) => (
+              <button
+                key={item.key}
+                onClick={() => handleNav(item.href)}
+                className="group relative cursor-pointer text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
+              >
+                {t(item.key)}
+                <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" />
+              </button>
+            ))}
+          </nav>
+        </LanguageTransitionWrapper>
 
         <div className="flex items-center gap-3">
           <div className="flex items-center rounded-full border border-border/60 bg-secondary p-1">
@@ -130,17 +133,19 @@ export function Header() {
                   </button>
                 </div>
 
-                <nav className="flex flex-col gap-4">
-                  {navItems.map((item) => (
-                    <button
-                      key={item.key}
-                      onClick={() => handleNav(item.href)}
-                      className="cursor-pointer text-left text-base font-medium text-muted-foreground transition-colors duration-200 hover:text-primary"
-                    >
-                      {t(item.key)}
-                    </button>
-                  ))}
-                </nav>
+                <LanguageTransitionWrapper>
+                  <nav className="flex flex-col gap-4">
+                    {navItems.map((item) => (
+                      <button
+                        key={item.key}
+                        onClick={() => handleNav(item.href)}
+                        className="cursor-pointer text-left text-base font-medium text-muted-foreground transition-colors duration-200 hover:text-primary"
+                      >
+                        {t(item.key)}
+                      </button>
+                    ))}
+                  </nav>
+                </LanguageTransitionWrapper>
                 <Button onClick={() => handleNav("#waitlist")} className="w-full">
                   {t("nav.waitlist")}
                 </Button>
