@@ -1,7 +1,7 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { MapPin, BrainCircuit, Coins, Settings2, FlaskConical, Salad } from "lucide-react"
+import { MapPin, BrainCircuit, Coins, Settings2 } from "lucide-react"
 import { AnimatedSection } from "@/components/ui/animated-section"
 import { useScrollAnimation, animationVariants } from "@/hooks/use-scroll-animation"
 import { cn } from "@/lib/utils"
@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils"
 export function WhyDifferent() {
   const { t } = useLanguage()
   const { ref: gridRef, isVisible: gridVisible } = useScrollAnimation<HTMLDivElement>()
-  const { ref: trustRef, isVisible: trustVisible } = useScrollAnimation<HTMLDivElement>()
 
   const differentiators = [
     {
@@ -75,27 +74,6 @@ export function WhyDifferent() {
           </div>
         </div>
 
-        {/* Trust note */}
-        <div
-          ref={trustRef}
-          className={cn("mx-auto mt-16 max-w-4xl scroll-hidden", trustVisible && animationVariants.fadeUp)}
-        >
-          <div className="rounded-2xl border border-border bg-card p-8 text-center shadow-sm">
-            <p className="text-base leading-relaxed text-muted-foreground">{t("different.trust")}</p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-6 sm:gap-10">
-              {[
-                { icon: FlaskConical, label: t("different.sources") },
-                { icon: MapPin, label: t("different.products") },
-                { icon: Salad, label: t("different.diets") },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <item.icon className="h-4 w-4 shrink-0 text-primary/70" />
-                  <span>{item.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   )
