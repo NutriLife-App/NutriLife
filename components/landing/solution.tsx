@@ -1,7 +1,7 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { Check, ChefHat, MapPin, PiggyBank, Microscope } from "lucide-react"
+import { Check, ChefHat, MapPin, PiggyBank, Microscope, Egg, Soup, Utensils } from "lucide-react"
 import { AnimatedSection } from "@/components/ui/animated-section"
 import { useScrollAnimation, animationVariants } from "@/hooks/use-scroll-animation"
 import { cn } from "@/lib/utils"
@@ -39,15 +39,17 @@ export function Solution() {
 
                   <div className="space-y-3">
                     {[
-                      { emoji: "🥣", name: t("solution.oatmeal"), cal: "320" },
-                      { emoji: "🥗", name: t("solution.caesar"), cal: "420" },
-                      { emoji: "🍗", name: t("solution.chicken"), cal: "480" },
+                      { icon: Egg, name: t("solution.oatmeal"), cal: "320" },
+                      { icon: Soup, name: t("solution.caesar"), cal: "420" },
+                      { icon: Utensils, name: t("solution.chicken"), cal: "480" },
                     ].map((meal, i) => (
                       <div
                         key={i}
                         className="flex items-center gap-3 rounded-xl bg-secondary/80 p-3"
                       >
-                        <span className="text-2xl">{meal.emoji}</span>
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                          <meal.icon className="h-4 w-4 text-primary" />
+                        </div>
                         <span className="flex-1 font-medium text-foreground">{meal.name}</span>
                         <span className="text-sm text-primary">{meal.cal} kcal</span>
                       </div>

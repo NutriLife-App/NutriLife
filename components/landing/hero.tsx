@@ -2,17 +2,11 @@
 
 import { useLanguage } from "@/lib/language-context"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Apple, Salad, Heart } from "lucide-react"
+import { ArrowRight, Apple, Salad, Heart, Leaf, Wallet } from "lucide-react"
+import { scrollToSection } from "@/lib/scroll"
 
 export function Hero() {
   const { t } = useLanguage()
-
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
-    }
-  }
 
   return (
     <section className="relative overflow-hidden pb-20 pt-12 sm:pb-32 sm:pt-20">
@@ -28,7 +22,7 @@ export function Hero() {
           <div className="flex flex-col items-start">
             {/* Badge */}
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-2 text-sm font-medium text-primary">
-              <span className="text-base">🌿</span>
+              <Leaf className="h-3.5 w-3.5" />
               <span>{t("hero.badge")}</span>
             </div>
 
@@ -124,8 +118,8 @@ export function Hero() {
               {/* Floating badge — budget indicator */}
               <div className="absolute -bottom-4 -right-4 rounded-2xl border border-border bg-card p-4 shadow-lg sm:-right-6">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20">
-                    <span className="text-lg">💰</span>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+                    <Wallet className="h-5 w-5 text-primary" />
                   </div>
                   <div>
                     <p className="text-sm font-medium text-foreground">{t("hero.spending")}</p>

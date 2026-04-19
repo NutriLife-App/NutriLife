@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/lib/language-context"
 import { Button } from "@/components/ui/button"
-import { Check, Building2, ArrowRight } from "lucide-react"
+import { Check, Building2, ArrowRight, BarChart3, Target, Heart } from "lucide-react"
 import { AnimatedSection } from "@/components/ui/animated-section"
 import { useScrollAnimation, animationVariants } from "@/hooks/use-scroll-animation"
 import { cn } from "@/lib/utils"
@@ -73,20 +73,20 @@ export function Partners() {
                 {/* Partner benefits preview */}
                 <div className="space-y-4">
                   {[
-                    { 
-                      emoji: "📊", 
+                    {
+                      icon: BarChart3,
                       title: t("partners.analytics"),
                       value: "+45%",
                       desc: t("partners.conversion")
                     },
-                    { 
-                      emoji: "🎯", 
+                    {
+                      icon: Target,
                       title: t("partners.targeting"),
                       value: "2.5x",
                       desc: t("partners.roi")
                     },
-                    { 
-                      emoji: "❤️", 
+                    {
+                      icon: Heart,
                       title: t("partners.loyalty"),
                       value: "+60%",
                       desc: t("partners.retention")
@@ -96,7 +96,9 @@ export function Partners() {
                       key={i}
                       className="flex items-center gap-4 rounded-xl bg-secondary p-4"
                     >
-                      <span className="text-2xl">{item.emoji}</span>
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+                        <item.icon className="h-5 w-5 text-primary" />
+                      </div>
                       <div className="flex-1">
                         <p className="font-medium text-foreground">{item.title}</p>
                         <p className="text-sm text-muted-foreground">{item.desc}</p>

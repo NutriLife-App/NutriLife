@@ -1,7 +1,7 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { MapPin, BrainCircuit, Coins, Settings2 } from "lucide-react"
+import { MapPin, BrainCircuit, Coins, Settings2, FlaskConical, Salad } from "lucide-react"
 import { AnimatedSection } from "@/components/ui/animated-section"
 import { useScrollAnimation, animationVariants } from "@/hooks/use-scroll-animation"
 import { cn } from "@/lib/utils"
@@ -84,12 +84,12 @@ export function WhyDifferent() {
             <p className="text-base leading-relaxed text-muted-foreground">{t("different.trust")}</p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-6 sm:gap-10">
               {[
-                { emoji: "🧪", label: t("different.sources") },
-                { emoji: "🇺🇦", label: t("different.products") },
-                { emoji: "🥗", label: t("different.diets") },
+                { icon: FlaskConical, label: t("different.sources") },
+                { icon: MapPin, label: t("different.products") },
+                { icon: Salad, label: t("different.diets") },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <span className="text-xl">{item.emoji}</span>
+                  <item.icon className="h-4 w-4 shrink-0 text-primary/70" />
                   <span>{item.label}</span>
                 </div>
               ))}

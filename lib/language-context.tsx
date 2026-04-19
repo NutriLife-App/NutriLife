@@ -155,6 +155,7 @@ const translations = {
     "waitlist.success": "Дякуємо! Ви в списку очікування.",
     "waitlist.loading": "Зачекайте...",
     "waitlist.emailError": "Введіть коректний email",
+    "waitlist.submitError": "Не вдалося надіслати. Спробуйте ще раз.",
     "waitlist.joined": "вже приєдналися",
 
     // FAQ
@@ -331,6 +332,7 @@ const translations = {
     "waitlist.success": "Thank you! You're on the waitlist.",
     "waitlist.loading": "Please wait...",
     "waitlist.emailError": "Please enter a valid email",
+    "waitlist.submitError": "Could not send. Please try again.",
     "waitlist.joined": "already joined",
 
     // FAQ
