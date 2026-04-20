@@ -41,7 +41,7 @@ function LanguageSwitcher({
           key={lang}
           onClick={() => setLanguage(lang)}
           aria-pressed={language === lang}
-          className={`relative z-10 flex-1 flex items-center justify-center cursor-pointer rounded-full ${sizeStyles.labelSize} font-semibold tracking-wider transition-colors duration-200 select-none ${language === lang ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+          className={`relative z-10 flex-1 flex h-full items-center justify-center cursor-pointer rounded-full ${sizeStyles.labelSize} font-semibold tracking-wider transition-colors duration-200 select-none ${language === lang ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
         >
           {lang.toUpperCase()}
         </button>
