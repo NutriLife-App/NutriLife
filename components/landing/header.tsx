@@ -32,7 +32,7 @@ function LanguageSwitcher({
       {/* Animated sliding pill background */}
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute top-[3px] ${sizeStyles.pillH} w-[calc(50%-3px)] rounded-full bg-primary shadow-sm transition-transform duration-300 ease-[cubic-bezier(0.34,1.2,0.64,1)] ${isEn ? "translate-x-[calc(100%+3px)]" : "translate-x-0"}`}
+        className={`pointer-events-none absolute top-1/2 -translate-y-1/2 ${sizeStyles.pillH} w-[calc(50%-3px)] rounded-full bg-primary shadow-sm transition-transform duration-300 ease-[cubic-bezier(0.34,1.2,0.64,1)] ${isEn ? "translate-x-[calc(100%+3px)]" : "translate-x-0"}`}
       />
 
       {/* Language buttons */}
