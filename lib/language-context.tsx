@@ -8,6 +8,7 @@ interface LanguageContextType {
   language: Language
   setLanguage: (lang: Language) => void
   t: (key: string) => string
+  isTransitioning: boolean
 }
 
 const translations = {
@@ -21,7 +22,7 @@ const translations = {
 
     // Hero
     "hero.badge": "Помічник з харчування",
-    "hero.headline": "Персоналізоване харчування для українців",
+    "hero.headline": "Персоналізоване харчування для реального життя в Україні",
     "hero.stats.recipes": "Рецептів",
     "hero.stats.local": "Локальні продукти",
     "hero.stats.ai": "Персоналізація",
@@ -35,13 +36,13 @@ const translations = {
     "hero.health": "Стан здоров'я",
     "hero.spending": "Витрати на продукти",
     "hero.spendingDesc": "Вкладаєтесь у бюджет",
-    "hero.subheadline": "NutriLife допомагає скласти зручний раціон під ваші цілі, бюджет та уподобання з продуктів, які можна купити в найближчому магазині.",
+    "hero.subheadline": "NutriLife допомагає скласти зручний раціон під ваші цілі, бюджет та уподобання — з продуктів, які можна купити в найближчому магазині.",
     "hero.cta.primary": "Спробувати першими",
     "hero.cta.secondary": "Дізнатися більше",
 
     // Problem
     "problem.label": "Проблема",
-    "problem.headline": "Здорове харчування в Україні – це виклик",
+    "problem.headline": "Здорове харчування в Україні - це виклик",
     "problem.item1.title": "Складність планування",
     "problem.item1.desc": "Важко скласти раціон, який буде смачним, корисним і доступним одночасно.",
     "problem.item2.title": "Нереалістичні поради",
@@ -49,7 +50,7 @@ const translations = {
     "problem.item3.title": "Обмежений бюджет",
     "problem.item3.desc": "Здорове харчування не повинно коштувати як крило літака.",
     "problem.item4.title": "Брак часу",
-    "problem.item4.desc": "Щодня думати про те, що приготувати – виснажує.",
+    "problem.item4.desc": "Щодня думати про те, що приготувати - виснажує.",
 
     // Solution
     "solution.label": "Рішення",
@@ -87,7 +88,7 @@ const translations = {
     "forWhom.card3.title": "Активні люди",
     "forWhom.card3.desc": "Оптимальне харчування для підтримки енергії та досягнення фітнес-цілей.",
     "forWhom.card4.title": "Зайняті професіонали",
-    "forWhom.card4.desc": "Економте час на плануванні – більше часу для важливих справ.",
+    "forWhom.card4.desc": "Економте час на плануванні - більше часу для важливих справ.",
 
     // Product preview
     "preview.label": "Продукт",
@@ -107,16 +108,20 @@ const translations = {
     "preview.items": "12 продуктів",
 
     // Why different
-    "different.label": "Чому ми",
-    "different.headline": "Чому NutriLife - це інакше",
-    "different.item1.title": "Локальний фокус",
-    "different.item1.desc": "Ми знаємо, що можна купити в АТБ, Сільпо чи на базарі.",
-    "different.item2.title": "Персоналізація",
-    "different.item2.desc": "Враховуємо ваші цілі, алергії, уподобання та те, скільки часу у вас є на приготування.",
-    "different.item3.title": "Реальний бюджет",
-    "different.item3.desc": "Плануємо раціон, який не вдарить по гаманцю.",
-    "different.item4.title": "Гнучкість",
-    "different.item4.desc": "Легко адаптується до ваших змін – настрій, сезон, можливості.",
+    "different.label": "Переваги",
+    "different.headline": "Чому NutriLife?",
+    "different.item1.title": "Продукти з вашого магазину",
+    "different.item1.desc": "Всі рецепти складаються з того, що реально є в АТБ, Сільпо, Рості чи на ринку — без екзотики та недоступних інгредієнтів.",
+    "different.item2.title": "Враховує саме вас",
+    "different.item2.desc": "Алергії, нелюбимі страви, скільки часу є на готування, скільки осіб у родині — все це враховується при формуванні раціону.",
+    "different.item3.title": "Вписується в бюджет",
+    "different.item3.desc": "Ви задаєте суму на тиждень — і отримуєте план, який у неї вписується. Без переплат і харчових відходів.",
+    "different.item4.title": "Готовий список покупок",
+    "different.item4.desc": "Замість того щоб думати що купити — отримуєте чіткий список із кількостями для всього тижня.",
+    "different.item5.title": "Сезонність і доступність",
+    "different.item5.desc": "Раціон адаптується до сезону: влітку — свіжі овочі, взимку — те, що є в магазині й коштує розумно.",
+    "different.item6.title": "Засновано на нутриціології",
+    "different.item6.desc": "Плани харчування відповідають реальним принципам збалансованого харчування — без псевдонаукових дієт.",
     "different.trust": "Раціони формуються на основі перевірених нутриціологічних принципів, а не модних трендів.",
     "different.sources": "Науково обґрунтовані рекомендації",
     "different.experts": "Експертів",
@@ -264,7 +269,7 @@ const translations = {
     "forWhom.card3.title": "Active People",
     "forWhom.card3.desc": "Optimal nutrition to maintain energy and achieve fitness goals.",
     "forWhom.card4.title": "Busy Professionals",
-    "forWhom.card4.desc": "Save time on planning – more time for what matters.",
+    "forWhom.card4.desc": "Save time on planning - more time for what matters.",
 
     // Product preview
     "preview.label": "Product",
@@ -283,17 +288,21 @@ const translations = {
     "preview.shoppingList": "Shopping list",
     "preview.items": "12 items",
 
-    // Why different
-    "different.label": "Why Us",
-    "different.headline": "Why NutriLife is Different",
-    "different.item1.title": "Local Focus",
-    "different.item1.desc": "We know what you can buy at ATB, Silpo, or the local market.",
-    "different.item2.title": "Personalization",
-    "different.item2.desc": "We factor in your goals, allergies, preferences, and how much time you have to cook.",
-    "different.item3.title": "Real Budget",
-    "different.item3.desc": "Planning meals that won't break the bank.",
-    "different.item4.title": "Flexibility",
-    "different.item4.desc": "Easily adapts to your changes – mood, season, possibilities.",
+    // Why different / Benefits
+    "different.label": "Benefits",
+    "different.headline": "Why NutriLife?",
+    "different.item1.title": "Products from your local store",
+    "different.item1.desc": "Every recipe uses ingredients you can actually find at ATB, Silpo, or your local market — no exotic or hard-to-find items.",
+    "different.item2.title": "Built around you",
+    "different.item2.desc": "Allergies, foods you dislike, how long you have to cook, how many people to feed — it all shapes your meal plan.",
+    "different.item3.title": "Fits your budget",
+    "different.item3.desc": "Set a weekly spending limit and get a plan that stays within it — no waste, no overbuying.",
+    "different.item4.title": "Ready shopping list",
+    "different.item4.desc": "No more guessing what to buy — you get a clear list with exact quantities for the whole week.",
+    "different.item5.title": "Seasonal and practical",
+    "different.item5.desc": "The plan adapts to the season: fresh produce in summer, what's in store and affordable in winter.",
+    "different.item6.title": "Grounded in nutrition",
+    "different.item6.desc": "Meal plans follow real balanced eating principles — no fad diets, no radical restrictions.",
     "different.trust": "Meal plans are built on established nutrition principles, not trending fads.",
     "different.sources": "Evidence-based recommendations",
     "different.experts": "Experts",
@@ -372,6 +381,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>("ua")
   const [mounted, setMounted] = useState(false)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -382,8 +392,13 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const setLanguage = (lang: Language) => {
-    setLanguageState(lang)
-    localStorage.setItem("nutrilife-language", lang)
+    if (lang === language) return
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setLanguageState(lang)
+      localStorage.setItem("nutrilife-language", lang)
+      setIsTransitioning(false)
+    }, 120)
   }
 
   const t = (key: string): string => {
@@ -392,14 +407,14 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   if (!mounted) {
     return (
-      <LanguageContext.Provider value={{ language: "ua", setLanguage, t }}>
+      <LanguageContext.Provider value={{ language: "ua", setLanguage, t, isTransitioning: false }}>
         {children}
       </LanguageContext.Provider>
     )
   }
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, isTransitioning }}>
       {children}
     </LanguageContext.Provider>
   )
