@@ -8,15 +8,70 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/s
 import { Menu } from "lucide-react"
 import Image from "next/image"
 
+// ── Reusable language switcher ──────────────────────────────────────────────
+function LanguageSwitcher({
+  language,
+  setLanguage,
+  size = "sm",
+}: {
+  language: "ua" | "en"
+  setLanguage: (l: "ua" | "en") => void
+  size?: "sm" | "md"
+}) {
+  const isEn = language === "en"
+  const pillH  = size === "sm" ? "h-7"  : "h-8"
+  const wrapH  = size === "sm" ? "h-8"  : "h-9"
+  const labelSize = size === "sm" ? "text-[0.7rem]" : "text-xs"
+
+  return (
+    <div
+      role="group"
+      aria-label="Language switcher"
+      className={`relative flex ${wrapH} w-[5.25rem] items-center rounded-full border border-border/50 bg-muted/60 p-[3px]`}
+    >
+      {/* Animated sliding pill */}
+      <span
+        aria-hidden
+        className={`
+          pointer-events-none absolute top-[3px] ${pillH}
+          w-[calc(50%-3px)] rounded-full bg-primary shadow-sm
+          transition-transform duration-300 ease-[cubic-bezier(0.34,1.2,0.64,1)]
+          ${isEn ? "translate-x-[calc(100%+3px)]" : "translate-x-0"}
+        `}
+      />
+
+      {(["ua", "en"] as const).map((lang) => (
+        <button
+          key={lang}
+          onClick={() => setLanguage(lang)}
+          aria-pressed={language === lang}
+          className={`
+            relative z-10 flex-1 cursor-pointer rounded-full
+            ${labelSize} font-semibold tracking-wider
+            transition-colors duration-200 select-none
+            ${language === lang
+              ? "text-primary-foreground"
+              : "text-muted-foreground hover:text-foreground"
+            }
+          `}
+        >
+          {lang.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+// ── Header ──────────────────────────────────────────────────────────────────
 export function Header() {
   const { language, setLanguage, t } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
 
   const navItems = [
     { key: "nav.howItWorks", href: "#how-it-works" },
-    { key: "nav.forWhom", href: "#for-whom" },
-    { key: "nav.features", href: "#why-different" },
-    { key: "nav.faq", href: "#faq" },
+    { key: "nav.forWhom",    href: "#for-whom" },
+    { key: "nav.features",   href: "#why-different" },
+    { key: "nav.faq",        href: "#faq" },
   ]
 
   const handleNav = (href: string) => {
@@ -27,6 +82,8 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/30 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/70">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+
+        {/* Logo */}
         <a href="/" className="flex items-center gap-2.5">
           <div className="relative h-9 w-9 overflow-hidden rounded-xl">
             <Image
@@ -40,6 +97,7 @@ export function Header() {
           <span className="text-xl font-semibold text-foreground">NutriLife</span>
         </a>
 
+        {/* Desktop nav */}
         <nav className="hidden items-center gap-8 md:flex">
           {navItems.map((item) => (
             <button
@@ -53,34 +111,15 @@ export function Header() {
           ))}
         </nav>
 
+        {/* Right controls */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center rounded-full border border-border/60 bg-secondary p-1">
-            <button
-              onClick={() => setLanguage("ua")}
-              className={`cursor-pointer rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-200 ${
-                language === "ua"
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:bg-background hover:text-foreground"
-              }`}
-            >
-              UA
-            </button>
-            <button
-              onClick={() => setLanguage("en")}
-              className={`cursor-pointer rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-200 ${
-                language === "en"
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:bg-background hover:text-foreground"
-              }`}
-            >
-              EN
-            </button>
-          </div>
+          <LanguageSwitcher language={language} setLanguage={setLanguage} size="sm" />
 
           <Button onClick={() => handleNav("#waitlist")} className="hidden sm:flex" size="sm">
             {t("nav.waitlist")}
           </Button>
 
+          {/* Mobile hamburger */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
@@ -91,40 +130,15 @@ export function Header() {
             <SheetContent side="right" className="w-[300px] bg-background">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col gap-6 pt-6">
+
                 <a href="/" className="flex items-center gap-2.5">
                   <div className="relative h-9 w-9 overflow-hidden rounded-xl">
-                    <Image
-                      src="/logo-mark.png"
-                      alt="NutriLife logo"
-                      fill
-                      className="object-cover"
-                    />
+                    <Image src="/logo-mark.png" alt="NutriLife logo" fill className="object-cover" />
                   </div>
                   <span className="text-xl font-semibold text-foreground">NutriLife</span>
                 </a>
 
-                <div className="flex items-center rounded-full border border-border/60 bg-secondary p-1">
-                  <button
-                    onClick={() => setLanguage("ua")}
-                    className={`flex-1 cursor-pointer rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 ${
-                      language === "ua"
-                        ? "bg-primary text-primary-foreground shadow-sm"
-                        : "text-muted-foreground hover:bg-background hover:text-foreground"
-                    }`}
-                  >
-                    UA
-                  </button>
-                  <button
-                    onClick={() => setLanguage("en")}
-                    className={`flex-1 cursor-pointer rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 ${
-                      language === "en"
-                        ? "bg-primary text-primary-foreground shadow-sm"
-                        : "text-muted-foreground hover:bg-background hover:text-foreground"
-                    }`}
-                  >
-                    EN
-                  </button>
-                </div>
+                <LanguageSwitcher language={language} setLanguage={setLanguage} size="md" />
 
                 <nav className="flex flex-col gap-4">
                   {navItems.map((item) => (
@@ -137,13 +151,16 @@ export function Header() {
                     </button>
                   ))}
                 </nav>
+
                 <Button onClick={() => handleNav("#waitlist")} className="w-full">
                   {t("nav.waitlist")}
                 </Button>
+
               </div>
             </SheetContent>
           </Sheet>
         </div>
+
       </div>
     </header>
   )
