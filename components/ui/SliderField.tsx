@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { PanResponder, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
-import { colors } from '@/constants/colors';
+import { useAppConfig } from '@/hooks/use-app-config';
 
 const THUMB_SIZE = 28;
 
@@ -36,6 +36,7 @@ export function SliderField({
   onChange: (value: number) => void;
   accessibilityLabel?: string;
 }) {
+  const { colors } = useAppConfig();
   const [trackWidth, setTrackWidth] = useState(1);
   const startValueRef = useRef(value);
 
@@ -65,27 +66,36 @@ export function SliderField({
 
   return (
     <View style={[styles.container, style]}>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.label, { color: colors.mutedText }]}>{label}</Text>
 
       <View
         accessibilityRole="adjustable"
         accessibilityLabel={accessibilityLabel ?? label}
         onLayout={(e) => setTrackWidth(e.nativeEvent.layout.width)}
-        style={[styles.track, disabled ? styles.trackDisabled : null]}
+        style={[
+          styles.track,
+          {
+            borderColor: colors.border,
+            backgroundColor: colors.surface,
+          },
+          disabled ? styles.trackDisabled : null,
+        ]}
         {...panResponder.panHandlers}>
-        <View style={[styles.fill, { width: thumbLeft }]} />
+        <View style={[styles.fill, { width: thumbLeft, backgroundColor: colors.accentSoft }]} />
         <View
           style={[
             styles.thumb,
             {
               left: thumbLeft - THUMB_SIZE / 2,
               opacity: disabled ? 0.55 : 1,
+              backgroundColor: colors.accent,
+              borderColor: colors.accentWarmSoft,
             },
           ]}
         />
       </View>
 
-      <Text style={styles.valueText}>
+      <Text style={[styles.valueText, { color: colors.text }]}>
         {value}
         {unit ? ` ${unit}` : ''}
       </Text>
@@ -98,7 +108,6 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   label: {
-    color: colors.mutedText,
     fontSize: 13,
     fontWeight: '700',
   },
@@ -106,8 +115,6 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 999,
     borderWidth: 1,
-    borderColor: colors.border,
-    backgroundColor: colors.surface,
     overflow: 'hidden',
     justifyContent: 'center',
   },
@@ -119,7 +126,6 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: colors.accentSoft,
   },
   thumb: {
     position: 'absolute',
@@ -127,12 +133,9 @@ const styles = StyleSheet.create({
     width: THUMB_SIZE,
     height: THUMB_SIZE,
     borderRadius: 999,
-    backgroundColor: colors.accent,
     borderWidth: 1,
-    borderColor: colors.accentWarmSoft,
   },
   valueText: {
-    color: colors.text,
     fontWeight: '800',
     fontSize: 14,
   },

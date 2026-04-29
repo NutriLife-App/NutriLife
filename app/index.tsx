@@ -1,40 +1,44 @@
 import { router } from 'expo-router';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 
 import { AppButton } from '@/components/ui/AppButton';
 import { AppCard } from '@/components/ui/AppCard';
 import { ScreenContainer } from '@/components/layout/ScreenContainer';
-import { colors } from '@/constants/colors';
 import { spacing } from '@/constants/spacing';
+import { useAppConfig } from '@/hooks/use-app-config';
 
 export default function WelcomeScreen() {
+  const { colors, t } = useAppConfig();
+
   return (
     <ScreenContainer>
       <View style={styles.hero}>
-        <Text style={styles.badge}>NutriLife</Text>
-        <Text style={styles.title}>Personal nutrition, built for you</Text>
-        <Text style={styles.subtitle}>
-          Create meal plans based on your goals, dietary restrictions, budget, and what’s available nearby.
-        </Text>
+        <Text style={[styles.badge, { color: colors.accent }]}>{t('welcome.badge')}</Text>
+        <Text style={[styles.title, { color: colors.text }]}>{t('welcome.title')}</Text>
+        <Text style={[styles.subtitle, { color: colors.mutedText }]}>{t('welcome.subtitle')}</Text>
       </View>
 
       <AppCard style={styles.cardElevated} variant="elevated">
-        <Text style={styles.cardTitle}>Start in ~2 minutes</Text>
-        <Text style={styles.cardBody}>
-          Choose a package, then answer a few onboarding questions to personalize your meal plan.
-        </Text>
+        <Text style={[styles.cardTitle, { color: colors.text }]}>{t('welcome.cardTitle')}</Text>
+        <Text style={[styles.cardBody, { color: colors.mutedText }]}>{t('welcome.cardBody')}</Text>
 
         <View style={{ height: spacing.md }} />
 
-        <AppButton onPress={() => router.push('/package-selection')} accessibilityLabel="Choose your package">
-          Choose your package
+        <AppButton onPress={() => router.push('/package-selection')} accessibilityLabel={t('welcome.ctaStart')}>
+          {t('welcome.ctaStart')}
+        </AppButton>
+
+        <View style={{ height: spacing.sm }} />
+        <AppButton
+          variant="ghost"
+          onPress={() => Alert.alert('NutriLife', t('common.signInPlaceholder'))}
+          accessibilityLabel={t('welcome.ctaSignIn')}>
+          {t('welcome.ctaSignIn')}
         </AppButton>
       </AppCard>
 
-      <Text style={styles.finePrint}>
-        MVP mode: all recommendations are mock data only (no backend, no AI generation).
-      </Text>
+      <Text style={[styles.finePrint, { color: colors.mutedText }]}>{t('welcome.finePrint')}</Text>
     </ScreenContainer>
   );
 }
@@ -45,19 +49,16 @@ const styles = StyleSheet.create<any>({
     marginBottom: spacing.lg,
   },
   badge: {
-    color: colors.accent,
     fontWeight: '900',
     letterSpacing: 0.2,
     fontSize: 14,
   },
   title: {
-    color: colors.text,
     fontWeight: '950',
     fontSize: 28,
     lineHeight: 34,
   },
   subtitle: {
-    color: colors.mutedText,
     fontSize: 15,
     lineHeight: 22,
   },
@@ -65,19 +66,16 @@ const styles = StyleSheet.create<any>({
     borderRadius: 22,
   },
   cardTitle: {
-    color: colors.text,
     fontSize: 18,
     fontWeight: '900',
     marginBottom: 6,
   },
   cardBody: {
-    color: colors.mutedText,
     fontSize: 14,
     lineHeight: 20,
   },
   finePrint: {
     marginTop: spacing.sm,
-    color: 'rgba(234,243,238,0.55)',
     fontSize: 12,
     lineHeight: 18,
   },

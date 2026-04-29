@@ -7,20 +7,24 @@ import { AppCard } from '@/components/ui/AppCard';
 import { AppChip } from '@/components/ui/AppChip';
 import { AppInput } from '@/components/ui/AppInput';
 import { ScreenContainer } from '@/components/layout/ScreenContainer';
-import { colors } from '@/constants/colors';
 import { spacing } from '@/constants/spacing';
 import { mockPlanTiers } from '@/constants/mockData';
+import { useAppConfig } from '@/hooks/use-app-config';
 import { useNutriLifeState } from '@/app/_layout';
 import type { Gender } from '@/types/user';
 
 const GENDERS: Gender[] = ['female', 'male', 'other'];
 
 export default function OnboardingAccountStep() {
+  const { colors, t } = useAppConfig();
   const { subscriptionPlan, profile, initProfileDraftFromSubscription, patchProfile } = useNutriLifeState();
 
   const [email, setEmail] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('1995-06-12');
   const [gender, setGender] = useState<Gender>('other');
+  const [emailError, setEmailError] = useState<string | null>(null);
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   useEffect(() => {
     if (!subscriptionPlan) return;
@@ -37,8 +41,9 @@ export default function OnboardingAccountStep() {
 
   const planTierLabel = useMemo(() => {
     if (!subscriptionPlan) return '';
-    return mockPlanTiers.find((t) => t.key === subscriptionPlan.planTier)?.label ?? subscriptionPlan.planTier;
-  }, [subscriptionPlan]);
+    const tierKey = mockPlanTiers.find((it) => it.key === subscriptionPlan.planTier)?.key ?? subscriptionPlan.planTier;
+    return tierKey === 'free' ? t('package.free') : tierKey === 'basic' ? t('package.basic') : t('package.premium');
+  }, [subscriptionPlan, t]);
 
   if (!subscriptionPlan) {
     router.replace('/package-selection');
@@ -48,7 +53,7 @@ export default function OnboardingAccountStep() {
   if (!profile) {
     return (
       <ScreenContainer>
-        <Text style={styles.loading}>Preparing your profile…</Text>
+        <Text style={[styles.loading, { color: colors.mutedText }]}>{t('common.preparingProfile')}</Text>
       </ScreenContainer>
     );
   }
@@ -56,37 +61,46 @@ export default function OnboardingAccountStep() {
   return (
     <ScreenContainer>
       <View style={styles.top}>
-        <Text style={styles.step}>Step 1 / 5</Text>
-        <Text style={styles.title}>Account basics</Text>
-        <Text style={styles.subtitle}>
-          {subscriptionPlan.packageType === 'individual' ? 'Individual' : 'Family'} • {planTierLabel}
+        <Text style={[styles.step, { color: colors.accentWarm }]}>{t('onboarding.account.step')}</Text>
+        <Text style={[styles.title, { color: colors.text }]}>{t('onboarding.account.title')}</Text>
+        <Text style={[styles.subtitle, { color: colors.mutedText }]}>
+          {(subscriptionPlan.packageType === 'individual' ? t('package.individual') : t('package.family'))} • {planTierLabel}
         </Text>
       </View>
 
       <AppCard style={styles.section}>
         <AppInput
-          label="Email"
+          label={t('onboarding.account.email')}
           value={email}
-          onChangeText={setEmail}
+          onChangeText={(val) => {
+            setEmail(val);
+            if (emailError) setEmailError(null);
+          }}
           placeholder="you@example.com"
           keyboardType="email-address"
-          accessibilityLabel="Email input"
+          accessibilityLabel={t('onboarding.account.email')}
         />
+        {emailError ? <Text style={[styles.errorText, { color: colors.danger }]}>{emailError}</Text> : null}
       </AppCard>
 
       <AppCard style={styles.section}>
         <AppInput
-          label="Date of birth"
+          label={t('onboarding.account.dob')}
           value={dateOfBirth}
           onChangeText={setDateOfBirth}
           placeholder="YYYY-MM-DD"
-          accessibilityLabel="Date of birth input"
+          accessibilityLabel={t('onboarding.account.dob')}
         />
         <View style={{ height: spacing.md }} />
-        <Text style={styles.label}>Gender</Text>
+        <Text style={[styles.label, { color: colors.mutedText }]}>{t('onboarding.account.gender')}</Text>
         <View style={styles.chipsRow}>
           {GENDERS.map((g) => (
-            <AppChip key={g} label={g[0].toUpperCase() + g.slice(1)} selected={gender === g} onPress={() => setGender(g)} />
+            <AppChip
+              key={g}
+              label={g === 'female' ? t('gender.female') : g === 'male' ? t('gender.male') : t('gender.other')}
+              selected={gender === g}
+              onPress={() => setGender(g)}
+            />
           ))}
         </View>
       </AppCard>
@@ -94,15 +108,19 @@ export default function OnboardingAccountStep() {
       <View style={styles.footer}>
         <AppButton
           onPress={() => {
+            if (!emailRegex.test(email.trim())) {
+              setEmailError(t('onboarding.account.errorEmail'));
+              return;
+            }
             patchProfile({ email, dateOfBirth, gender });
             router.push('/onboarding/body');
           }}
-          disabled={email.trim().length < 3}
-          accessibilityLabel="Continue onboarding"
+          disabled={email.trim().length === 0}
+          accessibilityLabel={t('common.continue')}
         >
-          Continue
+          {t('common.continue')}
         </AppButton>
-        <Text style={styles.hint}>This is used only to personalize your nutrition.</Text>
+        <Text style={[styles.hint, { color: colors.mutedText }]}>{t('onboarding.account.hint')}</Text>
       </View>
     </ScreenContainer>
   );
@@ -114,25 +132,21 @@ const styles = StyleSheet.create<any>({
     gap: spacing.xs,
   },
   step: {
-    color: colors.accentWarm,
     fontWeight: '900',
     fontSize: 12,
     letterSpacing: 0.2,
   },
   title: {
-    color: colors.text,
     fontWeight: '950',
     fontSize: 22,
   },
   subtitle: {
-    color: colors.mutedText,
     fontSize: 13,
   },
   section: {
     marginBottom: spacing.md,
   },
   label: {
-    color: colors.mutedText,
     fontWeight: '800',
     marginBottom: spacing.xs,
   },
@@ -146,12 +160,16 @@ const styles = StyleSheet.create<any>({
     marginTop: spacing.lg,
   },
   loading: {
-    color: colors.mutedText,
+    fontSize: 14,
   },
   hint: {
-    color: 'rgba(234,243,238,0.6)',
     fontSize: 12,
     lineHeight: 18,
+  },
+  errorText: {
+    marginTop: spacing.xs,
+    fontSize: 12,
+    fontWeight: '700',
   },
 });
 

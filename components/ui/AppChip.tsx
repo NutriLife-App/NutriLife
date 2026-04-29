@@ -1,8 +1,8 @@
 import { PropsWithChildren } from 'react';
 import { Pressable, StyleProp, StyleSheet, Text, TextStyle, ViewStyle } from 'react-native';
 
-import { colors } from '@/constants/colors';
 import { spacing } from '@/constants/spacing';
+import { useAppConfig } from '@/hooks/use-app-config';
 
 export function AppChip({
   label,
@@ -21,6 +21,7 @@ export function AppChip({
   textStyle?: StyleProp<TextStyle>;
   accessibilityLabel?: string;
 }>) {
+  const { colors } = useAppConfig();
   const isDisabled = !!disabled;
 
   return (
@@ -30,12 +31,15 @@ export function AppChip({
       onPress={!isDisabled ? onPress : undefined}
       style={({ pressed }) => [
         styles.base,
-        selected ? styles.selected : null,
+        {
+          borderColor: selected ? colors.accent : colors.border,
+          backgroundColor: selected ? colors.accentSoft : colors.surface,
+        },
         isDisabled ? styles.disabled : null,
         pressed && !isDisabled ? styles.pressed : null,
         style,
       ]}>
-      <Text style={[styles.text, selected ? styles.textSelected : null, textStyle]}>{label}</Text>
+      <Text style={[styles.text, { color: selected ? colors.text : colors.mutedText }, textStyle]}>{label}</Text>
     </Pressable>
   );
 }
@@ -43,26 +47,16 @@ export function AppChip({
 const styles = StyleSheet.create({
   base: {
     borderWidth: 1,
-    borderColor: colors.border,
     borderRadius: 999,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.xs,
-    backgroundColor: colors.surface,
     minHeight: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  selected: {
-    backgroundColor: colors.accentSoft,
-    borderColor: colors.accent,
-  },
   text: {
-    color: colors.mutedText,
     fontWeight: '700',
     fontSize: 13,
-  },
-  textSelected: {
-    color: colors.text,
   },
   pressed: {
     transform: [{ scale: 0.98 }],

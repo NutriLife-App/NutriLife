@@ -1,18 +1,24 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { router, Tabs } from 'expo-router';
+import React, { useEffect } from 'react';
 
 import { HapticTab } from '@/components/haptic-tab';
-import { colors } from '@/constants/colors';
+import { useAppConfig } from '@/hooks/use-app-config';
 import { useNutriLifeState } from '@/app/_layout';
 
 const TAB_ICON_SIZE = 24;
 
 export default function TabLayout() {
+  const { colors } = useAppConfig();
   const { onboardingCompleted } = useNutriLifeState();
 
+  useEffect(() => {
+    if (onboardingCompleted) return;
+    router.replace('/');
+  }, [onboardingCompleted]);
+
   if (!onboardingCompleted) {
-    // Keep the navigator hidden until onboarding finishes.
+    // While redirecting to entry flow, render nothing.
     return null;
   }
 

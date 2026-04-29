@@ -6,27 +6,28 @@ import { AppButton } from '@/components/ui/AppButton';
 import { AppCard } from '@/components/ui/AppCard';
 import { AppChip } from '@/components/ui/AppChip';
 import { ScreenContainer } from '@/components/layout/ScreenContainer';
-import { colors } from '@/constants/colors';
 import { spacing } from '@/constants/spacing';
+import { useAppConfig } from '@/hooks/use-app-config';
 import { useNutriLifeState } from '@/app/_layout';
 import type { NutritionGoal } from '@/types/user';
 
-const GOALS: { key: NutritionGoal; label: string }[] = [
-  { key: 'lose', label: 'Lose weight' },
-  { key: 'maintain', label: 'Maintain balance' },
-  { key: 'gain', label: 'Gain muscle mass' },
-];
+const GOALS: { key: NutritionGoal }[] = [{ key: 'lose' }, { key: 'maintain' }, { key: 'gain' }];
 
 export default function OnboardingLifestyleStep() {
+  const { colors, t } = useAppConfig();
   const { profile, patchProfile } = useNutriLifeState();
-  const [nutritionGoal, setNutritionGoal] = useState<NutritionGoal>('maintain');
+  const [nutritionGoal, setNutritionGoal] = useState<NutritionGoal | null>(null);
+  const [goalError, setGoalError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!profile) return;
     setNutritionGoal(profile.nutritionGoal);
   }, [profile]);
 
-  const subtitle = useMemo(() => GOALS.find((g) => g.key === nutritionGoal)?.label ?? '', [nutritionGoal]);
+  const subtitle = useMemo(() => {
+    if (!nutritionGoal) return '';
+    return nutritionGoal === 'lose' ? t('goal.lose') : nutritionGoal === 'maintain' ? t('goal.maintain') : t('goal.gain');
+  }, [nutritionGoal, t]);
 
   if (!profile) {
     router.replace('/onboarding/account');
@@ -36,29 +37,45 @@ export default function OnboardingLifestyleStep() {
   return (
     <ScreenContainer>
       <View style={styles.top}>
-        <Text style={styles.step}>Step 3 / 5</Text>
-        <Text style={styles.title}>Your nutrition goal</Text>
-        <Text style={styles.subtitle}>{subtitle}</Text>
+        <Text style={[styles.step, { color: colors.accentWarm }]}>{t('onboarding.lifestyle.step')}</Text>
+        <Text style={[styles.title, { color: colors.text }]}>{t('onboarding.lifestyle.title')}</Text>
+        <Text style={[styles.subtitle, { color: colors.mutedText }]}>{subtitle}</Text>
       </View>
 
       <AppCard style={styles.section}>
-        <Text style={styles.label}>Choose one</Text>
+        <Text style={[styles.label, { color: colors.mutedText }]}>{t('onboarding.lifestyle.choose')}</Text>
         <View style={styles.chipsRow}>
           {GOALS.map((g) => (
-            <AppChip key={g.key} label={g.label} selected={nutritionGoal === g.key} onPress={() => setNutritionGoal(g.key)} />
+            <AppChip
+              key={g.key}
+              label={g.key === 'lose' ? t('goal.lose') : g.key === 'maintain' ? t('goal.maintain') : t('goal.gain')}
+              selected={nutritionGoal === g.key}
+              onPress={() => {
+                setNutritionGoal(g.key);
+                if (goalError) setGoalError(null);
+              }}
+            />
           ))}
         </View>
+        {goalError ? <Text style={[styles.errorText, { color: colors.danger }]}>{goalError}</Text> : null}
       </AppCard>
 
       <View style={styles.footer}>
+        <AppButton variant="ghost" onPress={() => router.back()} accessibilityLabel={t('common.back')}>
+          {t('common.back')}
+        </AppButton>
         <AppButton
           onPress={() => {
+            if (!nutritionGoal) {
+              setGoalError(t('onboarding.lifestyle.errorGoal'));
+              return;
+            }
             patchProfile({ nutritionGoal });
             router.push('/onboarding/restrictions');
           }}
-          accessibilityLabel="Continue to dietary restrictions"
+          accessibilityLabel={t('common.continue')}
         >
-          Continue
+          {t('common.continue')}
         </AppButton>
       </View>
     </ScreenContainer>
@@ -71,25 +88,21 @@ const styles = StyleSheet.create<any>({
     gap: spacing.xs,
   },
   step: {
-    color: colors.accentWarm,
     fontWeight: '900',
     fontSize: 12,
     letterSpacing: 0.2,
   },
   title: {
-    color: colors.text,
     fontWeight: '950',
     fontSize: 22,
   },
   subtitle: {
-    color: colors.mutedText,
     fontSize: 13,
   },
   section: {
     marginBottom: spacing.md,
   },
   label: {
-    color: colors.mutedText,
     fontWeight: '800',
     marginBottom: spacing.sm,
   },
@@ -100,6 +113,12 @@ const styles = StyleSheet.create<any>({
   },
   footer: {
     marginTop: spacing.lg,
+    gap: spacing.sm,
+  },
+  errorText: {
+    marginTop: spacing.xs,
+    fontSize: 12,
+    fontWeight: '700',
   },
 });
 

@@ -1,8 +1,8 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View, ViewStyle } from 'react-native';
 
-import { colors } from '@/constants/colors';
 import { spacing } from '@/constants/spacing';
+import { useAppConfig } from '@/hooks/use-app-config';
 
 export function ScreenContainer({
   children,
@@ -14,6 +14,7 @@ export function ScreenContainer({
   contentStyle?: ViewStyle;
   scroll?: boolean;
 }>) {
+  const { colors } = useAppConfig();
   const inner = (
     <View style={[styles.inner, contentStyle]}>
       {header}
@@ -22,7 +23,7 @@ export function ScreenContainer({
   );
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <SafeAreaView style={[styles.safe, { backgroundColor: colors.background }]}>
       {scroll ? <ScrollView contentContainerStyle={styles.scroll}>{inner}</ScrollView> : inner}
     </SafeAreaView>
   );
@@ -31,7 +32,6 @@ export function ScreenContainer({
 const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: colors.background,
   },
   scroll: {
     paddingHorizontal: spacing.md,

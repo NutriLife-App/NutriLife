@@ -8,12 +8,13 @@ import { AppChip } from '@/components/ui/AppChip';
 import { AppInput } from '@/components/ui/AppInput';
 import { ScreenContainer } from '@/components/layout/ScreenContainer';
 import { SliderField } from '@/components/ui/SliderField';
-import { colors } from '@/constants/colors';
 import { spacing } from '@/constants/spacing';
+import { useAppConfig } from '@/hooks/use-app-config';
 import { useNutriLifeState } from '@/app/_layout';
 import type { UserBudget } from '@/types/user';
 
 export default function OnboardingBudgetStep() {
+  const { colors, t } = useAppConfig();
   const { profile, patchProfile, finishOnboarding, subscriptionPlan } = useNutriLifeState();
 
   const initial: UserBudget =
@@ -25,6 +26,7 @@ export default function OnboardingBudgetStep() {
 
   const [cadence, setCadence] = useState<UserBudget['cadence']>(initial.cadence);
   const [amount, setAmount] = useState<number>(initial.amount);
+  const [budgetError, setBudgetError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!profile) return;
@@ -32,7 +34,10 @@ export default function OnboardingBudgetStep() {
     setAmount(profile.budget.amount);
   }, [profile]);
 
-  const cadenceLabel = useMemo(() => (cadence === 'daily' ? 'Daily' : 'Weekly'), [cadence]);
+  const cadenceLabel = useMemo(
+    () => (cadence === 'daily' ? t('onboarding.budget.daily') : t('onboarding.budget.weekly')),
+    [cadence, t],
+  );
 
   if (!profile || !subscriptionPlan) {
     router.replace('/onboarding/account');
@@ -42,16 +47,16 @@ export default function OnboardingBudgetStep() {
   return (
     <ScreenContainer>
       <View style={styles.top}>
-        <Text style={styles.step}>Step 5 / 5</Text>
-        <Text style={styles.title}>Food budget</Text>
-        <Text style={styles.subtitle}>So we pick meals that feel doable in real life.</Text>
+        <Text style={[styles.step, { color: colors.accentWarm }]}>{t('onboarding.budget.step')}</Text>
+        <Text style={[styles.title, { color: colors.text }]}>{t('onboarding.budget.title')}</Text>
+        <Text style={[styles.subtitle, { color: colors.mutedText }]}>{t('onboarding.budget.subtitle')}</Text>
       </View>
 
       <AppCard style={styles.section}>
-        <Text style={styles.label}>Budget cadence</Text>
+        <Text style={[styles.label, { color: colors.mutedText }]}>{t('onboarding.budget.cadence')}</Text>
         <View style={styles.chipsRow}>
-          <AppChip label="Daily" selected={cadence === 'daily'} onPress={() => setCadence('daily')} />
-          <AppChip label="Weekly" selected={cadence === 'weekly'} onPress={() => setCadence('weekly')} />
+          <AppChip label={t('onboarding.budget.daily')} selected={cadence === 'daily'} onPress={() => setCadence('daily')} />
+          <AppChip label={t('onboarding.budget.weekly')} selected={cadence === 'weekly'} onPress={() => setCadence('weekly')} />
         </View>
       </AppCard>
 
@@ -68,22 +73,31 @@ export default function OnboardingBudgetStep() {
         />
         <View style={{ height: spacing.sm }} />
         <AppInput
-          label="Amount"
+          label={t('onboarding.budget.amount')}
           value={String(amount)}
           onChangeText={(txt) => {
             const parsed = Number(txt);
             if (!Number.isFinite(parsed)) return;
             setAmount(parsed);
+            if (budgetError) setBudgetError(null);
           }}
           keyboardType="decimal-pad"
           placeholder="35"
-          accessibilityLabel="Food budget amount input"
+          accessibilityLabel={t('onboarding.budget.amount')}
         />
+        {budgetError ? <Text style={[styles.errorText, { color: colors.danger }]}>{budgetError}</Text> : null}
       </AppCard>
 
       <View style={styles.footer}>
+        <AppButton variant="ghost" onPress={() => router.back()} accessibilityLabel={t('common.back')}>
+          {t('common.back')}
+        </AppButton>
         <AppButton
           onPress={() => {
+            if (!Number.isFinite(amount) || amount <= 0) {
+              setBudgetError(t('onboarding.budget.errorAmount'));
+              return;
+            }
             patchProfile({
               budget: {
                 cadence,
@@ -99,11 +113,11 @@ export default function OnboardingBudgetStep() {
             }, 0);
           }}
           disabled={amount <= 0}
-          accessibilityLabel="Finish onboarding"
+          accessibilityLabel={t('common.finish')}
         >
-          Finish
+          {t('common.finish')}
         </AppButton>
-        <Text style={styles.hint}>You can update these settings later.</Text>
+        <Text style={[styles.hint, { color: colors.mutedText }]}>{t('onboarding.budget.hint')}</Text>
       </View>
     </ScreenContainer>
   );
@@ -115,18 +129,15 @@ const styles = StyleSheet.create<any>({
     marginBottom: spacing.md,
   },
   step: {
-    color: colors.accentWarm,
     fontWeight: '900',
     fontSize: 12,
     letterSpacing: 0.2,
   },
   title: {
-    color: colors.text,
     fontWeight: '950',
     fontSize: 22,
   },
   subtitle: {
-    color: colors.mutedText,
     fontSize: 13,
     lineHeight: 18,
   },
@@ -134,7 +145,6 @@ const styles = StyleSheet.create<any>({
     marginBottom: spacing.md,
   },
   label: {
-    color: colors.mutedText,
     fontWeight: '800',
     marginBottom: spacing.sm,
   },
@@ -148,9 +158,13 @@ const styles = StyleSheet.create<any>({
     gap: spacing.sm,
   },
   hint: {
-    color: 'rgba(234,243,238,0.6)',
     fontSize: 12,
     lineHeight: 18,
+  },
+  errorText: {
+    marginTop: spacing.xs,
+    fontSize: 12,
+    fontWeight: '700',
   },
 });
 

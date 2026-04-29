@@ -1,8 +1,17 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
-import { DarkTheme, ThemeProvider } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { useColorScheme } from 'react-native';
 
+import { darkColors, lightColors, type ThemeColors } from '@/constants/colors';
+import {
+  defaultLocale,
+  normalizeLocale,
+  translations,
+  type Locale,
+  type TranslationKey,
+} from '@/constants/i18n';
 import { buildMockMealPlan, mockGroceryItems, mockProgressEntries, mockStarterProfile } from '@/constants/mockData';
 import type { GroceryItem } from '@/types/grocery';
 import type { MealPlan } from '@/types/meal-plan';
@@ -13,6 +22,12 @@ import type { UserProfile } from '@/types/user';
 type OnboardingCompletedReason = 'profile_complete';
 
 type NutriLifeState = {
+  locale: Locale;
+  setLocale: (locale: string) => void;
+  t: (key: TranslationKey) => string;
+  themeColors: ThemeColors;
+  isDarkMode: boolean;
+
   subscriptionPlan: SubscriptionPlan | null;
   profile: UserProfile | null;
   mealPlan: MealPlan | null;
@@ -48,6 +63,12 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
+  const systemScheme = useColorScheme();
+  const isDarkMode = systemScheme === 'dark';
+  const themeColors = isDarkMode ? darkColors : lightColors;
+
+  const [locale, setLocaleState] = useState<Locale>(defaultLocale);
+
   const [subscriptionPlan, setSubscriptionPlan] = useState<SubscriptionPlan | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [mealPlan, setMealPlan] = useState<MealPlan | null>(null);
@@ -66,6 +87,17 @@ export default function RootLayout() {
 
   const selectSubscriptionPlan = (next: SubscriptionPlan) => {
     setSubscriptionPlan(next);
+  };
+
+  const setLocale = (value: string) => {
+    setLocaleState(normalizeLocale(value));
+  };
+
+  const t = (key: TranslationKey) => {
+    const activeLocale = normalizeLocale(locale);
+    const activeMap = translations[activeLocale];
+    const fallbackMap = translations[defaultLocale];
+    return activeMap?.[key] ?? fallbackMap?.[key] ?? key;
   };
 
   const initProfileDraftFromSubscription = () => {
@@ -147,6 +179,12 @@ export default function RootLayout() {
   };
 
   const value: NutriLifeState = {
+    locale,
+    setLocale,
+    t,
+    themeColors,
+    isDarkMode,
+
     subscriptionPlan,
     profile,
     mealPlan,
@@ -170,13 +208,13 @@ export default function RootLayout() {
   };
 
   return (
-    <ThemeProvider value={DarkTheme}>
+    <ThemeProvider value={isDarkMode ? DarkTheme : DefaultTheme}>
       <NutriLifeStateContext.Provider value={value}>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
         </Stack>
-        <StatusBar style="light" />
+        <StatusBar style={isDarkMode ? 'light' : 'dark'} />
       </NutriLifeStateContext.Provider>
     </ThemeProvider>
   );

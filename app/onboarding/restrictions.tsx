@@ -7,8 +7,8 @@ import { AppCard } from '@/components/ui/AppCard';
 import { AppChip } from '@/components/ui/AppChip';
 import { AppInput } from '@/components/ui/AppInput';
 import { ScreenContainer } from '@/components/layout/ScreenContainer';
-import { colors } from '@/constants/colors';
 import { spacing } from '@/constants/spacing';
+import { useAppConfig } from '@/hooks/use-app-config';
 import { useNutriLifeState } from '@/app/_layout';
 import type { DietaryRestriction } from '@/types/user';
 
@@ -20,10 +20,11 @@ const RESTRICTIONS: { key: DietaryRestriction; label: string }[] = [
 ];
 
 export default function OnboardingRestrictionsStep() {
+  const { colors, t } = useAppConfig();
   const { profile, patchProfile } = useNutriLifeState();
 
   const [dietaryRestrictions, setDietaryRestrictions] = useState<DietaryRestriction[]>([]);
-  const [geolocation, setGeolocation] = useState('City center (placeholder)');
+  const [geolocation, setGeolocation] = useState(t('onboarding.restrictions.geoPlaceholder'));
 
   useEffect(() => {
     if (!profile) return;
@@ -43,18 +44,26 @@ export default function OnboardingRestrictionsStep() {
   return (
     <ScreenContainer>
       <View style={styles.top}>
-        <Text style={styles.step}>Step 4 / 5</Text>
-        <Text style={styles.title}>Dietary restrictions</Text>
-        <Text style={styles.subtitle}>Choose what to avoid; we’ll steer recipes accordingly (mock).</Text>
+        <Text style={[styles.step, { color: colors.accentWarm }]}>{t('onboarding.restrictions.step')}</Text>
+        <Text style={[styles.title, { color: colors.text }]}>{t('onboarding.restrictions.title')}</Text>
+        <Text style={[styles.subtitle, { color: colors.mutedText }]}>{t('onboarding.restrictions.subtitle')}</Text>
       </View>
 
       <AppCard style={styles.section}>
-        <Text style={styles.label}>Restrictions</Text>
+        <Text style={[styles.label, { color: colors.mutedText }]}>{t('onboarding.restrictions.label')}</Text>
         <View style={styles.chipsRow}>
           {RESTRICTIONS.map((r) => (
             <AppChip
               key={r.key}
-              label={r.label}
+              label={
+                r.key === 'lactose'
+                  ? t('restriction.lactose')
+                  : r.key === 'gluten'
+                    ? t('restriction.gluten')
+                    : r.key === 'allergens'
+                      ? t('restriction.allergens')
+                      : t('restriction.vegetarian')
+              }
               selected={dietaryRestrictions.includes(r.key)}
               onPress={() => toggleRestriction(r.key)}
             />
@@ -64,25 +73,28 @@ export default function OnboardingRestrictionsStep() {
 
       <AppCard style={styles.section}>
         <AppInput
-          label="Geolocation"
+          label={t('onboarding.restrictions.geo')}
           value={geolocation}
           onChangeText={setGeolocation}
-          placeholder="City, Country (placeholder)"
-          accessibilityLabel="Geolocation input"
-          rightHint="Local availability mock"
+          placeholder={t('onboarding.restrictions.geoPlaceholder')}
+          accessibilityLabel={t('onboarding.restrictions.geo')}
+          rightHint={t('local.availability.mock')}
         />
-        <Text style={styles.geoHint}>This is a placeholder only; no GPS or API calls are used in MVP mode.</Text>
+        <Text style={[styles.geoHint, { color: colors.mutedText }]}>{t('onboarding.restrictions.geoHint')}</Text>
       </AppCard>
 
       <View style={styles.footer}>
+        <AppButton variant="ghost" onPress={() => router.back()} accessibilityLabel={t('common.back')}>
+          {t('common.back')}
+        </AppButton>
         <AppButton
           onPress={() => {
             patchProfile({ dietaryRestrictions, geolocation });
             router.push('/onboarding/budget');
           }}
-          accessibilityLabel="Continue to budget"
+          accessibilityLabel={t('common.continue')}
         >
-          Continue
+          {t('common.continue')}
         </AppButton>
       </View>
     </ScreenContainer>
@@ -95,18 +107,15 @@ const styles = StyleSheet.create<any>({
     gap: spacing.xs,
   },
   step: {
-    color: colors.accentWarm,
     fontWeight: '900',
     fontSize: 12,
     letterSpacing: 0.2,
   },
   title: {
-    color: colors.text,
     fontWeight: '950',
     fontSize: 22,
   },
   subtitle: {
-    color: colors.mutedText,
     fontSize: 13,
     lineHeight: 18,
   },
@@ -114,7 +123,6 @@ const styles = StyleSheet.create<any>({
     marginBottom: spacing.md,
   },
   label: {
-    color: colors.mutedText,
     fontWeight: '800',
     marginBottom: spacing.sm,
   },
@@ -125,12 +133,12 @@ const styles = StyleSheet.create<any>({
   },
   geoHint: {
     marginTop: spacing.sm,
-    color: 'rgba(234,243,238,0.6)',
     fontSize: 12,
     lineHeight: 18,
   },
   footer: {
     marginTop: spacing.lg,
+    gap: spacing.sm,
   },
 });
 
